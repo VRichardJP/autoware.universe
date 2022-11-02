@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://autowarefoundation.github.io/autoware.universe/latest/perception/map_based_prediction/">
       
       <link rel="icon" href="../../docs/assets/images/autoware-foundation.png">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-8.5.7">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.7">
     
     
       
@@ -10758,6 +10758,11 @@ The default parameters are set so that the lane change can be detected 1 second 
 <td><code>min_velocity_for_map_based_prediction</code></td>
 <td>double</td>
 <td>apply map-based prediction to the objects with higher velocity than this value</td>
+</tr>
+<tr>
+<td><code>min_crosswalk_user_velocity</code></td>
+<td>double</td>
+<td>minimum velocity use in path prediction for crosswalk users</td>
 </tr>
 <tr>
 <td><code>dist_threshold_for_searching_lanelet</code></td>
