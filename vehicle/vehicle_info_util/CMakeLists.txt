@@ -8,7 +8,7 @@ ament_auto_add_library(vehicle_info_util SHARED
   src/vehicle_info_util.cpp
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     config
     launch

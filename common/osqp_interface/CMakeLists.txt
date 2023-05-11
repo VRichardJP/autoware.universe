@@ -4,10 +4,15 @@ project(osqp_interface)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(Eigen3 REQUIRED)
+ament_auto_find_package(Eigen3 REQUIRED)
 
 # after find_package(osqp_vendor) in ament_auto_find_build_dependencies
-find_package(osqp REQUIRED)
+ament_auto_find_package(osqp REQUIRED)
+# NOTE(VRichardJP) the way autoware wants to access osqp headers (through prefix osqp/*.h)
+# is inconsistent with the way osqp_vendor install and export them:
+# - installed directly /opt/ros/humble/include/osqp/*.h
+# - but exported with -I/opt/ros/humble/include/osqp
+# so the following hack is necessary
 get_target_property(OSQP_INCLUDE_SUB_DIR osqp::osqp INTERFACE_INCLUDE_DIRECTORIES)
 get_filename_component(OSQP_INCLUDE_DIR ${OSQP_INCLUDE_SUB_DIR} PATH)
 
@@ -28,21 +33,22 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 target_compile_options(${PROJECT_NAME} PRIVATE -Wno-error=old-style-cast -Wno-error=useless-cast)
 
+# NOTE(VRichardJP) see explanation above
 target_include_directories(osqp_interface
   SYSTEM PUBLIC
     "${OSQP_INCLUDE_DIR}"
-    "${EIGEN3_INCLUDE_DIR}"
 )
 
-ament_target_dependencies(osqp_interface
-  Eigen3
-  osqp_vendor
+target_link_libraries(osqp_interface
+  Eigen3::Eigen
+  osqp::osqp
 )
 
+# NOTE(VRichardJP) see explanation above
 # crucial so downstream package builds because osqp_interface exposes osqp.hpp
 ament_export_include_directories("${OSQP_INCLUDE_DIR}")
-# crucial so the linking order is correct in a downstream package: libosqp_interface.a should come before libosqp.a
-ament_export_libraries(osqp::osqp)
+# # crucial so the linking order is correct in a downstream package: libosqp_interface.a should come before libosqp.a
+# ament_export_libraries(osqp::osqp)
 
 if(BUILD_TESTING)
   set(TEST_SOURCES
@@ -51,8 +57,9 @@ if(BUILD_TESTING)
   )
   set(TEST_OSQP_INTERFACE_EXE test_osqp_interface)
   ament_add_ros_isolated_gtest(${TEST_OSQP_INTERFACE_EXE} ${TEST_SOURCES})
+  ament_auto_target_add_package_dependencies(${TEST_OSQP_INTERFACE_EXE} TEST_DEPS)
   target_link_libraries(${TEST_OSQP_INTERFACE_EXE} ${PROJECT_NAME})
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
 )

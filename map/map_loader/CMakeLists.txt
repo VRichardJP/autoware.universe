@@ -4,7 +4,7 @@ project(map_loader)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(PCL REQUIRED COMPONENTS io)
+ament_auto_find_package(PCL REQUIRED COMPONENTS io)
 
 ament_auto_add_library(pointcloud_map_loader_node SHARED
   src/pointcloud_map_loader/pointcloud_map_loader_node.cpp
@@ -14,13 +14,8 @@ ament_auto_add_library(pointcloud_map_loader_node SHARED
   src/pointcloud_map_loader/selected_map_loader_module.cpp
   src/pointcloud_map_loader/utils.cpp
 )
-target_link_libraries(pointcloud_map_loader_node ${PCL_LIBRARIES})
+ament_target_dependencies(pointcloud_map_loader_node SYSTEM PCL)
 target_link_libraries(pointcloud_map_loader_node yaml-cpp)
-
-target_include_directories(pointcloud_map_loader_node
-  SYSTEM PUBLIC
-  ${PCL_INCLUDE_DIRS}
-)
 
 rclcpp_components_register_node(pointcloud_map_loader_node
   PLUGIN "PointCloudMapLoaderNode"
@@ -59,10 +54,12 @@ if(BUILD_TESTING)
     get_filename_component(filename ${filepath} NAME)
     string(REGEX REPLACE ".cpp" "" test_name ${filename})
     ament_add_gmock(${test_name} ${filepath})
-    target_include_directories(${test_name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-    target_link_libraries(${test_name} ${${PROJECT_NAME}_LIBRARIES})
-    target_link_libraries(${test_name} yaml-cpp)
-    ament_target_dependencies(${test_name} ${${PROJECT_NAME}_FOUND_BUILD_DEPENDS})
+    target_link_libraries(${test_name}
+      pointcloud_map_loader_node
+      lanelet2_map_loader_node
+      lanelet2_map_visualization_node
+    )
+    ament_auto_target_add_package_dependencies(${test_name} TEST_DEPS)
   endfunction()
 
   find_package(ament_lint_auto REQUIRED)
@@ -80,7 +77,7 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

@@ -95,7 +95,7 @@ else()
 endif()
 
 # Create folder to store trained models.
-# NOTE: This must be created regardless of CUDA_AVAIL to be specified in ament_auto_package()
+# NOTE: This must be created regardless of CUDA_AVAIL to be specified in ament_auto_package(EXPORT_LIBRARY_TARGETS )
 set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/data)
 execute_process(COMMAND mkdir -p ${DATA_PATH})
 
@@ -159,6 +159,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   cuda_add_library(pointpainting_cuda_lib SHARED
     src/pointpainting_fusion/preprocess_kernel.cu
   )
+  ament_auto_install_targets(pointpainting_cuda_lib)
 
   target_link_libraries(pointpainting_lib
     ${OpenCV_LIBRARIES}
@@ -181,7 +182,7 @@ else()
   message("Skipping build of some nodes due to missing dependencies")
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
     config
     data

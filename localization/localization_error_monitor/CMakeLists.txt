@@ -9,7 +9,7 @@ ament_auto_add_executable(localization_error_monitor
   src/node.cpp
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   config
   launch
 )

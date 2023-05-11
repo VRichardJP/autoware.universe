@@ -22,4 +22,4 @@ ament_auto_add_library(tier4_pcl_extensions SHARED
 
 target_link_libraries(tier4_pcl_extensions ${PCL_LIBRARIES})
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

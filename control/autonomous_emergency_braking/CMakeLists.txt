@@ -4,18 +4,14 @@ project(autonomous_emergency_braking)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(PCL REQUIRED)
-
-include_directories(
-  include
-  SYSTEM
-  ${PCL_INCLUDE_DIRS}
-)
+ament_auto_find_package(PCL REQUIRED)
 
 set(AEB_NODE ${PROJECT_NAME}_node)
 ament_auto_add_library(${AEB_NODE} SHARED
   src/node.cpp
 )
+
+ament_target_dependencies(${AEB_NODE} SYSTEM PCL)
 
 rclcpp_components_register_node(${AEB_NODE}
   PLUGIN "autoware::motion::control::autonomous_emergency_braking::AEB"
@@ -27,7 +23,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
   config

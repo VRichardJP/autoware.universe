@@ -84,4 +84,4 @@ else()
 endif()
 
 list(APPEND ${PROJECT_NAME}_CONFIG_EXTRAS "${PROJECT_NAME}-extras.cmake.in")
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

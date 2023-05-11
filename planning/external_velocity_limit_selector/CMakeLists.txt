@@ -13,7 +13,7 @@ rclcpp_components_register_node(external_velocity_limit_selector_node
   EXECUTABLE external_velocity_limit_selector
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

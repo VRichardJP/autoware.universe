@@ -4,19 +4,7 @@ project(control_performance_analysis)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-
-find_package(Boost REQUIRED)
-
-find_package(eigen3_cmake_module REQUIRED)
-find_package(Eigen3 REQUIRED)
-
-include_directories(
-  SYSTEM
-    ${EIGEN3_INCLUDE_DIR}
-)
-find_package(builtin_interfaces REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-find_package(std_msgs REQUIRED)
+ament_auto_find_package(Eigen3 REQUIRED)
 
 rosidl_generate_interfaces(
         control_performance_analysis
@@ -31,6 +19,9 @@ ament_auto_add_library(
         control_performance_analysis_core SHARED
         src/control_performance_analysis_utils.cpp
         src/control_performance_analysis_core.cpp
+)
+target_link_libraries(control_performance_analysis_core
+        Eigen3::Eigen
 )
 
 ament_auto_add_library(
@@ -48,7 +39,6 @@ else()
             cpp_typesupport_target control_performance_analysis "rosidl_typesupport_cpp")
     target_link_libraries(control_performance_analysis_node "${cpp_typesupport_target}")
     target_link_libraries(control_performance_analysis_core "${cpp_typesupport_target}")
-
 endif()
 
 target_link_libraries(
@@ -62,7 +52,7 @@ rclcpp_components_register_node(
         EXECUTABLE control_performance_analysis_exe
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
         INSTALL_TO_SHARE
         launch
         config

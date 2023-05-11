@@ -10,7 +10,7 @@ ament_auto_add_executable(vehicle_velocity_converter
 )
 ament_target_dependencies(vehicle_velocity_converter)
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
   config

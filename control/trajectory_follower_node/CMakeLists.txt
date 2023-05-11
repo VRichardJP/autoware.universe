@@ -33,7 +33,7 @@ if(BUILD_TESTING)
     test/trajectory_follower_test_utils.hpp
     test/test_controller_node.cpp
   )
-  ament_target_dependencies(${TRAJECTORY_FOLLOWER_NODES_TEST} fake_test_node)
+  ament_auto_target_add_package_dependencies(${TRAJECTORY_FOLLOWER_NODES_TEST} TEST_DEPS)
   target_link_libraries(
     ${TRAJECTORY_FOLLOWER_NODES_TEST} ${CONTROLLER_NODE})
 
@@ -44,7 +44,7 @@ test_vehicle_info.param.yaml test_nearest_search.param.yaml trajectory_follower_
   )
 endif()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   param
   launch

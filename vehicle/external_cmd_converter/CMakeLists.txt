@@ -13,6 +13,6 @@ rclcpp_components_register_node(external_cmd_converter
   EXECUTABLE external_cmd_converter_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

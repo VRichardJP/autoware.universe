@@ -4,7 +4,7 @@ project(tier4_control_rviz_plugin)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(Qt5 REQUIRED Core Widgets)
+ament_auto_find_package(Qt5 REQUIRED Core Widgets)
 set(QT_LIBRARIES Qt5::Widgets)
 
 set(CMAKE_AUTOMOC ON)
@@ -28,7 +28,7 @@ target_link_libraries(tier4_control_rviz_plugin
 # Export the plugin to be imported by rviz2
 pluginlib_export_plugin_description_file(rviz_common plugins/plugin_description.xml)
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   plugins
 )

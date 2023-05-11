@@ -3,8 +3,6 @@ project(operation_mode_transition_manager)
 
 find_package(autoware_cmake REQUIRED)
 autoware_package()
-find_package(ament_cmake_auto REQUIRED)
-ament_auto_find_build_dependencies()
 
 ament_auto_add_library(operation_mode_transition_manager_node SHARED
   src/compatibility.cpp
@@ -40,7 +38,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
     config

@@ -6,4 +6,4 @@ autoware_package()
 
 ament_auto_add_library(${PROJECT_NAME} SHARED src/time_utils/time_utils.cpp)
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

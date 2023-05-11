@@ -117,13 +117,8 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   download(v2 pts_voxel_encoder_centerpoint_tiny.onnx 5fb774fac44dc83949d05eb3ba077309)
   download(v2 pts_backbone_neck_head_centerpoint_tiny.onnx e4658325b70222f7c3637fe00e586b82)
 
-  find_package(ament_cmake_auto REQUIRED)
-  ament_auto_find_build_dependencies()
-
-  include_directories(
-    include
-    ${CUDA_INCLUDE_DIRS}
-  )
+  # find_package(ament_cmake_auto REQUIRED)
+  # ament_auto_find_build_dependencies()
 
   ### centerpoint ###
   ament_auto_add_library(centerpoint_lib SHARED
@@ -144,6 +139,13 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     lib/network/scatter_kernel.cu
     lib/preprocess/preprocess_kernel.cu
   )
+  target_include_directories(centerpoint_cuda_lib 
+    PRIVATE
+      include
+    PUBLIC
+      ${CUDA_INCLUDE_DIRS}
+  )
+  ament_auto_install_targets(centerpoint_cuda_lib)
 
   target_link_libraries(centerpoint_lib
     ${NVINFER}
@@ -153,12 +155,6 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     ${CUDA_curand_LIBRARY}
     ${CUDNN_LIBRARY}
     centerpoint_cuda_lib
-  )
-
-  target_include_directories(centerpoint_lib
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:include>
   )
 
   # To suppress unknown-pragmas error. The root-cause is CUB library in CUDA 11.6.
@@ -203,7 +199,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
 
   ament_export_dependencies(ament_cmake_python)
 
-  ament_auto_package(
+  ament_auto_package(EXPORT_LIBRARY_TARGETS 
     INSTALL_TO_SHARE
       launch
       data
@@ -218,7 +214,7 @@ else()
   find_package(ament_cmake_auto REQUIRED)
   ament_auto_find_build_dependencies()
 
-  ament_auto_package(
+  ament_auto_package(EXPORT_LIBRARY_TARGETS 
     INSTALL_TO_SHARE
       launch
   )

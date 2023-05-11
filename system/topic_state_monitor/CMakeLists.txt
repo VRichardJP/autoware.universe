@@ -14,6 +14,6 @@ rclcpp_components_register_node(topic_state_monitor
   EXECUTABLE topic_state_monitor_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

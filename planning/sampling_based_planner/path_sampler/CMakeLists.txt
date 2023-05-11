@@ -14,6 +14,6 @@ rclcpp_components_register_node(path_sampler
   EXECUTABLE path_sampler_exe
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
 #   INSTALL_TO_SHARE
 )

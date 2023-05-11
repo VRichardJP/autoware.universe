@@ -13,7 +13,7 @@ rclcpp_components_register_node(dummy_infrastructure_node_component
   EXECUTABLE dummy_infrastructure_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     config
     launch

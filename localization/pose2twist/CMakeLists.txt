@@ -9,7 +9,7 @@ ament_auto_add_executable(pose2twist
   src/pose2twist_core.cpp
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
 )

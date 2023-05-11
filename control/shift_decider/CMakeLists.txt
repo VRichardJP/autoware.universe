@@ -13,7 +13,7 @@ rclcpp_components_register_node(shift_decider_node
   EXECUTABLE shift_decider
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
   config

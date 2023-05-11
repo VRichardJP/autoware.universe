@@ -36,4 +36,4 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_auto_package(INSTALL_TO_SHARE config launch test)
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE config launch test)

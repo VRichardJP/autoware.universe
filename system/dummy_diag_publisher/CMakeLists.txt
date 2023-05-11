@@ -9,7 +9,7 @@ ament_auto_add_executable(${PROJECT_NAME}
   src/dummy_diag_publisher_core.cpp
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

@@ -162,7 +162,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE single_image_debug_inference
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     data
     launch
   )
@@ -187,7 +187,7 @@ else()
     EXECUTABLE traffic_light_classifier_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     data
     launch
   )

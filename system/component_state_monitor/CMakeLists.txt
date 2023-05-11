@@ -12,4 +12,4 @@ rclcpp_components_register_nodes(${PROJECT_NAME}
   "component_state_monitor::StateMonitor"
 )
 
-ament_auto_package(INSTALL_TO_SHARE config launch)
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE config launch)

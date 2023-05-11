@@ -174,6 +174,6 @@ install(
 
 ament_export_targets(export_${PROJECT_NAME})
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

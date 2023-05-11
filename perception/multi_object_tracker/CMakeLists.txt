@@ -51,7 +51,7 @@ rclcpp_components_register_node(multi_object_tracker_node
   EXECUTABLE multi_object_tracker
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

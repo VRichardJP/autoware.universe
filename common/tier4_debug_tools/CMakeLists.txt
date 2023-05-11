@@ -4,15 +4,14 @@ project(tier4_debug_tools)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(Eigen3 REQUIRED)
-
-include_directories(
-  SYSTEM
-    ${EIGEN3_INCLUDE_DIR}
-)
+ament_auto_find_package(Eigen3 REQUIRED)
 
 ament_auto_add_library(lateral_error_publisher SHARED
   src/lateral_error_publisher.cpp
+)
+
+target_link_libraries(lateral_error_publisher
+  Eigen3::Eigen
 )
 
 rclcpp_components_register_node(lateral_error_publisher
@@ -20,7 +19,7 @@ rclcpp_components_register_node(lateral_error_publisher
   EXECUTABLE lateral_error_publisher_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     config
     launch

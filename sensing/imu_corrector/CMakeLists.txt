@@ -14,7 +14,7 @@ rclcpp_components_register_node(imu_corrector_node
   EXECUTABLE imu_corrector
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

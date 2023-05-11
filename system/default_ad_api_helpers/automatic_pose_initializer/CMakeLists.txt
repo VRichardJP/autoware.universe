@@ -8,4 +8,4 @@ ament_auto_add_executable(automatic_pose_initializer
   src/automatic_pose_initializer.cpp
 )
 
-ament_auto_package(INSTALL_TO_SHARE launch)
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE launch)

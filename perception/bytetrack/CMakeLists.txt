@@ -4,14 +4,14 @@ project(bytetrack)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(OpenCV REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(OpenMP REQUIRED)
+ament_auto_find_package(OpenCV REQUIRED)
+ament_auto_find_package(Eigen3 REQUIRED)
+ament_auto_find_package(OpenMP REQUIRED)
 if(OpenMP_FOUND)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
-find_package(Boost REQUIRED)
+ament_auto_find_package(Boost REQUIRED)
 
 #
 # Core library
@@ -36,6 +36,10 @@ target_link_libraries(bytetrack_lib Eigen3::Eigen)
 #
 ament_auto_add_library(${PROJECT_NAME} SHARED
   src/bytetrack.cpp
+)
+
+target_link_libraries(${PROJECT_NAME}
+  Eigen3::Eigen
 )
 
 ament_target_dependencies(${PROJECT_NAME}
@@ -89,6 +93,6 @@ rclcpp_components_register_node(${PROJECT_NAME}_visualizer
   EXECUTABLE ${PROJECT_NAME}_visualizer_node_exe
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

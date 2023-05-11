@@ -14,11 +14,11 @@ if(BUILD_TESTING)
     test/src/lowpass_filter_1d_test.cpp
     test/src/lowpass_filter_test.cpp
     test/src/butterworth_filter_test.cpp)
-
-  target_include_directories(test_signal_processing PUBLIC test/include)
+  ament_auto_target_add_package_dependencies(test_signal_processing TEST_DEPS)
+  target_include_directories(test_signal_processing PRIVATE test/include)
   target_link_libraries(test_signal_processing
     lowpass_filters)
 
 endif()
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

@@ -35,7 +35,7 @@ rclcpp_components_register_node(gnss_poser_node
   EXECUTABLE gnss_poser
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

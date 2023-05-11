@@ -29,7 +29,7 @@ rclcpp_components_register_node(bluetooth_monitor_lib
   EXECUTABLE bluetooth_monitor
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   config
   launch
 )

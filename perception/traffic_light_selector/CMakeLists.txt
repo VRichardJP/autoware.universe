@@ -14,4 +14,4 @@ rclcpp_components_register_nodes(${PROJECT_NAME}
   TrafficLightSelector
 )
 
-ament_auto_package(INSTALL_TO_SHARE launch)
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE launch)

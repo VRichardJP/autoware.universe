@@ -12,7 +12,7 @@ rclcpp_components_register_node(mrm_comfortable_stop_operator_component
   PLUGIN "mrm_comfortable_stop_operator::MrmComfortableStopOperator"
   EXECUTABLE mrm_comfortable_stop_operator)
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

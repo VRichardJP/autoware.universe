@@ -14,7 +14,7 @@ ament_auto_add_executable(velodyne_monitor
 ## Specify libraries to link a library or executable target against
 target_link_libraries(velodyne_monitor cpprest crypto fmt)
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
 )

@@ -90,11 +90,11 @@ if((NOT NN_DEPENDENCY_ENCODER STREQUAL "") AND (NOT NN_DEPENDENCY_BACKBONE STREQ
 
   ament_export_dependencies(ament_cmake_python)
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
     config
   )
 else()
   message(WARNING "Neural network not found, skipping package.")
-  ament_auto_package()
+  ament_auto_package(EXPORT_LIBRARY_TARGETS )
 endif()

@@ -47,7 +47,7 @@ rclcpp_components_register_node(laserscan_based_occupancy_grid_map
   EXECUTABLE laserscan_based_occupancy_grid_map_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
     config

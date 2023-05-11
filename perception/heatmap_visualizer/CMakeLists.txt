@@ -14,6 +14,6 @@ rclcpp_components_register_node(heatmap_visualizer_component
     EXECUTABLE heatmap_visualizer
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
 )

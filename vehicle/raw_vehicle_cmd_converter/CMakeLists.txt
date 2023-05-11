@@ -32,7 +32,7 @@ if(BUILD_TESTING)
   target_link_libraries(${TEST_RAW_VEHICLE_CMD_CONVERTER_EXE} actuation_map_converter raw_vehicle_cmd_converter_node_component)
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   config
   data
   launch

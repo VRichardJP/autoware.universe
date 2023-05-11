@@ -85,6 +85,7 @@ if(CMAKE_CUDA_COMPILER)
     SHARED
     src/preprocess.cu
   )
+  ament_auto_install_targets(${PROJECT_NAME}_gpu_preprocess)
 
   target_include_directories(${PROJECT_NAME}_gpu_preprocess PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -153,7 +154,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   data
 )

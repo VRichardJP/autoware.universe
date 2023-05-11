@@ -8,7 +8,6 @@ ament_auto_add_executable(accel_brake_map_calibrator
   src/accel_brake_map_calibrator_node.cpp
   src/main.cpp
 )
-ament_target_dependencies(accel_brake_map_calibrator)
 
 install(
   PROGRAMS
@@ -30,7 +29,7 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
   rviz)

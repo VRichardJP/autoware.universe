@@ -14,7 +14,7 @@ rclcpp_components_register_node(goal_distance_calculator
   EXECUTABLE goal_distance_calculator_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
   config

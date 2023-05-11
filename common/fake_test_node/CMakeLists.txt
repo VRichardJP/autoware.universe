@@ -10,8 +10,8 @@ if(BUILD_TESTING)
   ament_add_ros_isolated_gtest(test_fake_test_node
     test/test_fake_test_node.cpp
   )
-  add_dependencies(test_fake_test_node fake_test_node)
+  ament_auto_target_add_package_dependencies(test_fake_test_node TEST_DEPS)
   target_link_libraries(test_fake_test_node fake_test_node)
 endif()
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

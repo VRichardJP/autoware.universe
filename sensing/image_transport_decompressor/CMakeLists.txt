@@ -22,6 +22,6 @@ rclcpp_components_register_node(image_transport_decompressor
   EXECUTABLE image_transport_decompressor_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

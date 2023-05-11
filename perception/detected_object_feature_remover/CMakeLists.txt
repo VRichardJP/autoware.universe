@@ -13,7 +13,7 @@ rclcpp_components_register_node(detected_object_feature_remover_node
   EXECUTABLE detected_object_feature_remover
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
 )

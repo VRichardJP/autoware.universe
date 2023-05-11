@@ -17,10 +17,10 @@ if(BUILD_TESTING)
   file(GLOB_RECURSE test_files test/**/*.cpp)
 
   ament_add_ros_isolated_gtest(test_perception_utils ${test_files})
-
+  ament_auto_target_add_package_dependencies(test_perception_utils TEST_DEPS)
   target_link_libraries(test_perception_utils
     perception_utils
   )
 endif()
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

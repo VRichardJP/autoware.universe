@@ -4,7 +4,7 @@ project(tier4_control_launch)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
 )

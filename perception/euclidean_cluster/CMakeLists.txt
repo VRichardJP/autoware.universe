@@ -55,7 +55,7 @@ rclcpp_components_register_node(voxel_grid_based_euclidean_cluster_node_core
   EXECUTABLE voxel_grid_based_euclidean_cluster_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
     config
 )

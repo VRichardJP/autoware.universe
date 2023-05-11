@@ -13,7 +13,7 @@ rclcpp_components_register_node(object_range_splitter
   EXECUTABLE object_range_splitter_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
 )

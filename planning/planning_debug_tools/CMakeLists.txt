@@ -42,7 +42,7 @@ rclcpp_components_register_node(stop_reason_visualizer_node
   EXECUTABLE stop_reason_visualizer_exe
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
 )

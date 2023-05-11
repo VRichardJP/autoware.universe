@@ -19,6 +19,6 @@ rclcpp_components_register_node(livox_tag_filter
   EXECUTABLE livox_tag_filter_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
 )

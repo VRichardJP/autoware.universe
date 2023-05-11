@@ -24,6 +24,7 @@ ament_auto_add_library(freespace_planning_algorithms SHARED
 
 target_link_libraries(freespace_planning_algorithms
   reeds_shepp
+  rrtstar_core
 )
 
 if(BUILD_TESTING)
@@ -44,7 +45,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
 )
 

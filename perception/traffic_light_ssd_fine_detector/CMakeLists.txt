@@ -123,25 +123,25 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     lib/src/plugins/gather_topk_kernel.cu
     lib/src/plugins/gather_topk.cpp
   )
+  target_include_directories(gather_topk_plugin PRIVATE
+    lib/include
+  )
+  ament_auto_install_targets(gather_topk_plugin)
 
   cuda_add_library(grid_priors_plugin SHARED
     lib/src/plugins/grid_priors_kernel.cu
     lib/src/plugins/grid_priors.cpp
   )
+  target_include_directories(grid_priors_plugin PRIVATE
+    lib/include
+  )
+  ament_auto_install_targets(grid_priors_plugin)
 
   ament_auto_add_library(ssd SHARED
     lib/src/trt_ssd.cpp
   )
 
-  target_include_directories(ssd PUBLIC
-    lib/include
-  )
-
-  target_include_directories(gather_topk_plugin PUBLIC
-    lib/include
-  )
-
-  target_include_directories(grid_priors_plugin PUBLIC
+  ament_auto_target_include_directories(ssd
     lib/include
   )
 
@@ -173,7 +173,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE traffic_light_ssd_fine_detector_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     data
     launch
   )
@@ -190,7 +190,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
 else()
   message(STATUS "TrafficLightSSDFineDetector won't be built, CUDA and/or TensorRT were not found.")
   # to avoid launch file missing without a gpu
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
   )
 endif()

@@ -12,4 +12,4 @@ ament_auto_add_executable(routing_adaptor
   src/routing_adaptor.cpp
 )
 
-ament_auto_package(INSTALL_TO_SHARE config launch)
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE config launch)

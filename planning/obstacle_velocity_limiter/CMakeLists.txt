@@ -8,7 +8,16 @@ find_package(PCL REQUIRED COMPONENTS common)
 find_package(pcl_conversions REQUIRED)
 
 ament_auto_add_library(obstacle_velocity_limiter_node SHARED
-  DIRECTORY src
+  src/debug.cpp
+  src/distance.cpp
+  src/forward_projection.cpp
+  src/map_utils.cpp
+  src/obstacle_velocity_limiter_node.cpp
+  src/obstacle_velocity_limiter.cpp
+  src/obstacles.cpp
+  src/occupancy_grid_utils.cpp
+  src/pointcloud_utils.cpp
+  src/trajectory_preprocessing.cpp
 )
 
 ament_target_dependencies(obstacle_velocity_limiter_node PCL)
@@ -49,7 +58,7 @@ target_link_libraries(collision_benchmark
   obstacle_velocity_limiter_node
 )
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
     config

@@ -22,8 +22,7 @@ else()
   endif()
 endif()
 
-find_package(PCL REQUIRED COMPONENTS common io registration)
-include_directories(${PCL_INCLUDE_DIRS})
+find_package(PCL REQUIRED COMPONENTS io registration filters)
 
 ament_auto_add_executable(ndt_scan_matcher
   src/debug.cpp
@@ -37,10 +36,11 @@ ament_auto_add_executable(ndt_scan_matcher
   src/map_update_module.cpp
 )
 
-link_directories(${PCL_LIBRARY_DIRS})
+ament_target_dependencies(ndt_scan_matcher SYSTEM PCL)
+# FIXME(VRichardJP) to remove after https://github.com/ament/ament_cmake/issues/451 is fixed
 target_link_libraries(ndt_scan_matcher ${PCL_LIBRARIES})
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
     config

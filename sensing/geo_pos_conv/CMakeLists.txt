@@ -8,4 +8,4 @@ ament_auto_add_library(geo_pos_conv SHARED
   src/geo_pos_conv.cpp
 )
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

@@ -4,24 +4,19 @@ project(cuda_utils)
 find_package(autoware_cmake REQUIRED)
 autoware_package()
 
-find_package(CUDA)
+ament_auto_find_package(CUDA)
 
 if(NOT ${CUDA_FOUND})
   message(WARNING "cuda is not found, so the cuda_utils package won't be built.")
   return()
 endif()
 
-install(
-  DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION include/${PROJECT_NAME}
-)
+ament_auto_add_library(cuda_utils INTERFACE)
+ament_target_dependencies(cuda_utils SYSTEM INTERFACE CUDA)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_export_include_directories(include)
-ament_export_dependencies(CUDA)
-
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

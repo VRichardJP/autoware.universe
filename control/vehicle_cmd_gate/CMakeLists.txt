@@ -20,16 +20,13 @@ if(BUILD_TESTING)
     test/src/test_main.cpp
     test/src/test_vehicle_cmd_filter.cpp
   )
-  ament_target_dependencies(test_vehicle_cmd_gate
-    rclcpp
-    tier4_control_msgs
-  )
+  ament_auto_target_add_package_dependencies(test_vehicle_cmd_gate TEST_DEPS)
   target_link_libraries(test_vehicle_cmd_gate
     vehicle_cmd_gate_node
   )
 endif()
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
     launch
     config

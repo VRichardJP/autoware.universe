@@ -15,10 +15,11 @@ if(BUILD_TESTING)
   file(GLOB_RECURSE test_files test/**/*.cpp)
 
   ament_add_ros_isolated_gtest(test_interpolation ${test_files})
+  ament_auto_target_add_package_dependencies(test_interpolation TEST_DEPS)
 
   target_link_libraries(test_interpolation
     interpolation
   )
 endif()
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

@@ -12,13 +12,10 @@ endif()
 
 find_package(autoware_cmake REQUIRED)
 autoware_package()
-find_package(ament_cmake REQUIRED)
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-  DIRECTORY src
+  src/polygon_iterator.cpp
 )
-
-target_link_libraries(${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -27,16 +24,16 @@ if(BUILD_TESTING)
   ament_add_gtest(test_${PROJECT_NAME}
     test/test_polygon_iterator.cpp
   )
+  ament_auto_target_add_package_dependencies(test_${PROJECT_NAME} TEST_DEPS)
   target_link_libraries(test_${PROJECT_NAME}
     ${PROJECT_NAME}
   )
 
-  find_package(OpenCV REQUIRED)
   add_executable(benchmark test/benchmark.cpp)
+  ament_auto_target_add_package_dependencies(benchmark TEST_DEPS)
   target_link_libraries(benchmark
     ${PROJECT_NAME}
-    ${OpenCV_LIBS}
   )
 endif()
 
-ament_auto_package()
+ament_auto_package(EXPORT_LIBRARY_TARGETS )

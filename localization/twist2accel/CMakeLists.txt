@@ -8,9 +8,8 @@ ament_auto_add_executable(twist2accel
   src/twist2accel_node.cpp
   src/twist2accel.cpp
 )
-ament_target_dependencies(twist2accel)
 
-ament_auto_package(
+ament_auto_package(EXPORT_LIBRARY_TARGETS 
   INSTALL_TO_SHARE
   launch
 )

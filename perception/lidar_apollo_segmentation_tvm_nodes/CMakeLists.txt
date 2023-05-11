@@ -42,11 +42,11 @@ if(lidar_apollo_segmentation_tvm_BUILT)
     )
   endif()
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     launch
     config
   )
 else()
   message(WARNING "lidar_apollo_segmentation_tvm not built, skipping package.")
-  ament_auto_package()
+  ament_auto_package(EXPORT_LIBRARY_TARGETS )
 endif()

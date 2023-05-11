@@ -16,7 +16,7 @@ rclcpp_components_register_node(elevation_map_loader_node
   EXECUTABLE elevation_map_loader
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   launch
   config
   data

@@ -8,7 +8,7 @@ ament_auto_add_library(planning_test_utils SHARED
   src/planning_interface_test_manager.cpp
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   config
   test_map
 )

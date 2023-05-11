@@ -34,9 +34,10 @@ if(BUILD_TESTING)
   )
   set(TEST_LATERAL_CONTROLLER_EXE test_lateral_controller)
   ament_add_ros_isolated_gtest(${TEST_LATERAL_CONTROLLER_EXE} ${TEST_LAT_SOURCES})
+  ament_auto_target_add_package_dependencies(${TEST_LATERAL_CONTROLLER_EXE} TEST_DEPS)
   target_link_libraries(${TEST_LATERAL_CONTROLLER_EXE} ${MPC_LAT_CON_LIB})
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
   param
 )

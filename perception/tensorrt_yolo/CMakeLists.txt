@@ -124,36 +124,38 @@ endif()
 
 if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   include_directories(
-    include
-    lib/include
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/include>
+    $<INSTALL_INTERFACE:lib/include>
     ${OpenCV_INCLUDE_DIRS}
     ${CUDA_INCLUDE_DIRS}
   )
-
 
   ### yolo ###
   cuda_add_library(mish_plugin SHARED
     lib/src/plugins/mish.cu
     lib/src/plugins/mish_plugin.cpp
   )
+  ament_auto_install_targets(mish_plugin)
 
   cuda_add_library(yolo_layer_plugin SHARED
     lib/src/plugins/yolo_layer.cu
     lib/src/plugins/yolo_layer_plugin.cpp
   )
+  ament_auto_install_targets(yolo_layer_plugin)
 
   cuda_add_library(nms_plugin SHARED
     lib/src/plugins/nms.cu
     lib/src/plugins/nms_plugin.cpp
   )
+  ament_auto_install_targets(nms_plugin)
 
   ament_auto_add_library(yolo SHARED
     lib/src/trt_yolo.cpp
   )
 
   target_include_directories(yolo PUBLIC
-    lib/include
-  )
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/include>
+    $<INSTALL_INTERFACE:lib/include>)
 
   target_link_libraries(yolo
     ${NVINFER}
@@ -184,25 +186,25 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE tensorrt_yolo_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     config
     data
     launch
   )
 
-  install(
-    TARGETS
-      mish_plugin
-      yolo_layer_plugin
-      nms_plugin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-  )
+  # install(
+  #   TARGETS
+  #     mish_plugin
+  #     yolo_layer_plugin
+  #     nms_plugin
+  #   LIBRARY DESTINATION lib
+  #   ARCHIVE DESTINATION lib
+  #   RUNTIME DESTINATION bin
+  # )
 
 else()
   message("TensorrtYolo won't be built, CUDA and/or TensorRT were not found.")
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_auto_package(EXPORT_LIBRARY_TARGETS INSTALL_TO_SHARE
     config
     data
     launch
