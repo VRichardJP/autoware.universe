@@ -2,13 +2,12 @@ cmake_minimum_required(VERSION 3.14)
 project(accel_brake_map_calibrator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_executable(accel_brake_map_calibrator
+ament_ex_add_executable(accel_brake_map_calibrator
   src/accel_brake_map_calibrator_node.cpp
   src/main.cpp
 )
-ament_target_dependencies(accel_brake_map_calibrator)
 
 install(
   PROGRAMS
@@ -30,7 +29,7 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
   rviz)

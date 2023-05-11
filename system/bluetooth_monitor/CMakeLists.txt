@@ -3,14 +3,14 @@ project(bluetooth_monitor)
 
 ### Dependencies
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(bluetooth_monitor_lib SHARED
+ament_ex_add_library(bluetooth_monitor_lib SHARED
   src/bluetooth_monitor.cpp
 )
 
 ### Target executable
-ament_auto_add_executable(l2ping_service
+ament_ex_add_executable(l2ping_service
   service/main.cpp
   service/l2ping_service.cpp
   service/l2ping.cpp
@@ -29,7 +29,7 @@ rclcpp_components_register_node(bluetooth_monitor_lib
   EXECUTABLE bluetooth_monitor
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   config
   launch
 )

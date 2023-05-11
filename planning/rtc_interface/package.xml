@@ -11,7 +11,7 @@
 
   <author email="fumiya.watanabe@tier4.jp">Fumiya Watanabe</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
 
   <depend>rclcpp</depend>
   <depend>tier4_rtc_msgs</depend>

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(occupancy_grid_map_outlier_filter)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -10,7 +10,7 @@ find_package(Boost REQUIRED)
 find_package(PCL REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(OpenMP)
-ament_auto_find_build_dependencies()
+ament_ex_find_all_package_dependencies()
 
 include_directories(
   include
@@ -22,7 +22,7 @@ include_directories(
   ${GRID_MAP_INCLUDE_DIR}
 )
 
-ament_auto_add_library(occupancy_grid_map_outlier_filter SHARED
+ament_ex_add_library(occupancy_grid_map_outlier_filter SHARED
   src/occupancy_grid_map_outlier_filter_nodelet.cpp
 )
 
@@ -44,4 +44,4 @@ rclcpp_components_register_node(occupancy_grid_map_outlier_filter
   PLUGIN "occupancy_grid_map_outlier_filter::OccupancyGridMapOutlierFilterComponent"
   EXECUTABLE occupancy_grid_map_outlier_filter_node)
 
-ament_auto_package(INSTALL_TO_SHARE)
+ament_ex_package(INSTALL_TO_SHARE)

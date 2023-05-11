@@ -11,7 +11,7 @@
   <maintainer email="ryohsuke.mitsudome@tier4.jp">Ryohsuke Mitsudome</maintainer>
   <license>Apache License 2.0</license>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <exec_depend>ad_api_adaptors</exec_depend>

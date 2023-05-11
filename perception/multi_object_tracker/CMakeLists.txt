@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(multi_object_tracker)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Ignore -Wnonportable-include-path in Clang for mussp
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -33,11 +33,11 @@ set(MULTI_OBJECT_TRACKER_SRC
   src/data_association/data_association.cpp
 )
 
-ament_auto_add_library(mu_successive_shortest_path SHARED
+ament_ex_add_library(mu_successive_shortest_path SHARED
   src/data_association/mu_successive_shortest_path/mu_successive_shortest_path_wrapper.cpp
 )
 
-ament_auto_add_library(multi_object_tracker_node SHARED
+ament_ex_add_library(multi_object_tracker_node SHARED
   ${MULTI_OBJECT_TRACKER_SRC}
 )
 
@@ -51,7 +51,7 @@ rclcpp_components_register_node(multi_object_tracker_node
   EXECUTABLE multi_object_tracker
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

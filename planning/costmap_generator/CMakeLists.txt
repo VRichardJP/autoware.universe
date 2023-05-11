@@ -2,41 +2,43 @@ cmake_minimum_required(VERSION 3.14)
 project(costmap_generator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-find_package(PCL REQUIRED COMPONENTS common io)
-find_package(FLANN REQUIRED)
+ament_ex_find_package(PCL REQUIRED COMPONENTS common io)
+ament_ex_find_package(FLANN REQUIRED)
 
-include_directories(
-  include
-  SYSTEM
-  ${GRID_MAP_INCLUDE_DIR}
-  ${PCL_COMMON_INCLUDE_DIRS}
-  ${PCL_INCLUDE_DIRS}
-)
+# include_directories(
+#   include
+#   SYSTEM
+#   ${GRID_MAP_INCLUDE_DIR}
+#   ${PCL_COMMON_INCLUDE_DIRS}
+#   ${PCL_INCLUDE_DIRS}
+# )
 
-ament_auto_add_library(costmap_generator_lib SHARED
+ament_ex_add_library(costmap_generator_lib SHARED
   nodes/costmap_generator/points_to_costmap.cpp
   nodes/costmap_generator/objects_to_costmap.cpp
   nodes/costmap_generator/object_map_utils.cpp
 )
+ament_target_dependencies(costmap_generator_lib
+  PCL
+)
 target_link_libraries(costmap_generator_lib
-  ${PCL_LIBRARIES}
   FLANN::FLANN
 )
 
 if(${PCL_VERSION} GREATER_EQUAL 1.12.1)
-  find_package(Qhull REQUIRED)
+  ament_ex_find_package(Qhull REQUIRED)
   target_link_libraries(costmap_generator_lib
     QHULL::QHULL
   )
 endif()
 
-ament_auto_add_library(costmap_generator_node SHARED
+ament_ex_add_library(costmap_generator_node SHARED
   nodes/costmap_generator/costmap_generator_node.cpp
 )
 target_link_libraries(costmap_generator_node
-  ${PCL_LIBRARIES}
+  # ${PCL_LIBRARIES}
   costmap_generator_lib
 )
 
@@ -65,4 +67,4 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE launch)
+ament_ex_package(INSTALL_TO_SHARE launch)

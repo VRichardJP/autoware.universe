@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.14)
 project(simple_planning_simulator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Component
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   include/simple_planning_simulator/simple_planning_simulator_core.hpp
   include/simple_planning_simulator/visibility_control.hpp
   src/simple_planning_simulator/simple_planning_simulator_core.cpp
@@ -38,4 +38,4 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE param launch)
+ament_ex_package(INSTALL_TO_SHARE param launch)

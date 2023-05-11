@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(shape_estimation)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(PCL REQUIRED COMPONENTS common)
 find_package(pcl_conversions REQUIRED)
@@ -16,7 +16,7 @@ set(SHAPE_ESTIMATION_DEPENDENCIES
   Eigen3
 )
 
-ament_auto_add_library(shape_estimation_lib SHARED
+ament_ex_add_library(shape_estimation_lib SHARED
   lib/shape_estimator.cpp
   lib/model/bounding_box.cpp
   lib/model/convex_hull.cpp
@@ -39,7 +39,7 @@ target_include_directories(shape_estimation_lib
   "${EIGEN3_INCLUDE_DIR}"
 )
 
-ament_auto_add_library(shape_estimation_node SHARED
+ament_ex_add_library(shape_estimation_node SHARED
   src/node.cpp
 )
 
@@ -62,6 +62,6 @@ rclcpp_components_register_node(shape_estimation_node
   EXECUTABLE shape_estimation
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

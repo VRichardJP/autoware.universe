@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.14)
 project(pid_longitudinal_controller)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 set(PID_LON_CON_LIB ${PROJECT_NAME}_lib)
-ament_auto_add_library(${PID_LON_CON_LIB} SHARED
+ament_ex_add_library(${PID_LON_CON_LIB} SHARED
   src/pid_longitudinal_controller.cpp
   src/pid.cpp
   src/smooth_stop.cpp
@@ -20,10 +20,11 @@ if(BUILD_TESTING)
   )
   set(TEST_LONGITUDINAL_CONTROLLER_EXE test_longitudinal_controller)
   ament_add_ros_isolated_gtest(${TEST_LONGITUDINAL_CONTROLLER_EXE} ${TEST_LON_SOURCES})
+  ament_ex_target_add_package_dependencies(${TEST_LONGITUDINAL_CONTROLLER_EXE} TEST_DEPS)
   target_link_libraries(${TEST_LONGITUDINAL_CONTROLLER_EXE} ${PID_LON_CON_LIB})
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   param
 )

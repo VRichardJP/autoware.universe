@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(planning_debug_tools)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
@@ -14,11 +14,11 @@ rosidl_generate_interfaces(
   DEPENDENCIES builtin_interfaces
 )
 
-ament_auto_add_library(trajectory_analyzer_node SHARED
+ament_ex_add_library(trajectory_analyzer_node SHARED
   src/trajectory_analyzer.cpp
 )
 
-ament_auto_add_library(stop_reason_visualizer_node SHARED
+ament_ex_add_library(stop_reason_visualizer_node SHARED
   src/stop_reason_visualizer.cpp
 )
 
@@ -42,7 +42,7 @@ rclcpp_components_register_node(stop_reason_visualizer_node
   EXECUTABLE stop_reason_visualizer_exe
 )
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
 )

@@ -3,10 +3,10 @@ project(radar_fusion_to_detected_object)
 
 # Dependencies
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Targets
-ament_auto_add_library(radar_object_fusion_to_detected_object_node_component SHARED
+ament_ex_add_library(radar_object_fusion_to_detected_object_node_component SHARED
   src/radar_object_fusion_to_detected_object_node/radar_object_fusion_to_detected_object_node.cpp
   src/radar_fusion_to_detected_object.cpp
 )
@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 # Package
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   config
   launch

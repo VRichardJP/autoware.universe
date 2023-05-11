@@ -5,10 +5,10 @@ add_compile_options(-Wno-unknown-pragmas)
 find_package(autoware_cmake REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Build non-CUDA dependent nodes
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/fusion_node.cpp
   src/debugger.cpp
   src/utils/geometry.cpp
@@ -95,7 +95,7 @@ else()
 endif()
 
 # Create folder to store trained models.
-# NOTE: This must be created regardless of CUDA_AVAIL to be specified in ament_auto_package()
+# NOTE: This must be created regardless of CUDA_AVAIL to be specified in ament_ex_package()
 set(DATA_PATH ${CMAKE_CURRENT_SOURCE_DIR}/data)
 execute_process(COMMAND mkdir -p ${DATA_PATH})
 
@@ -150,7 +150,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     ${PCL_INCLUDE_DIRS}
   )
 
-  ament_auto_add_library(pointpainting_lib SHARED
+  ament_ex_add_library(pointpainting_lib SHARED
     src/pointpainting_fusion/node.cpp
     src/pointpainting_fusion/pointpainting_trt.cpp
     src/pointpainting_fusion/voxel_generator.cpp
@@ -159,6 +159,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   cuda_add_library(pointpainting_cuda_lib SHARED
     src/pointpainting_fusion/preprocess_kernel.cu
   )
+  ament_ex_install_targets(pointpainting_cuda_lib)
 
   target_link_libraries(pointpainting_lib
     ${OpenCV_LIBRARIES}
@@ -181,7 +182,7 @@ else()
   message("Skipping build of some nodes due to missing dependencies")
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
     launch
     config
     data

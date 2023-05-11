@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 project(radar_tracks_msgs_converter)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 ## Targets
-ament_auto_add_library(radar_tracks_msgs_converter_node_component SHARED
+ament_ex_add_library(radar_tracks_msgs_converter_node_component SHARED
   src/radar_tracks_msgs_converter_node/radar_tracks_msgs_converter_node.cpp
 )
 
@@ -22,7 +22,7 @@ if(BUILD_TESTING)
 endif()
 
 ## Package
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
 )

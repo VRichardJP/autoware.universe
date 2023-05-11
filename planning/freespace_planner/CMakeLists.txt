@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(freespace_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(freespace_planner_node SHARED
+ament_ex_add_library(freespace_planner_node SHARED
   src/freespace_planner/freespace_planner_node.cpp
 )
 
@@ -22,7 +22,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
   config

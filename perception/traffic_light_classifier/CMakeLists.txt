@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(traffic_light_classifier)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 option(CUDA_VERBOSE "Verbose output of CUDA modules" OFF)
 # set flags for CUDA availability
@@ -104,8 +104,8 @@ endfunction()
 download(traffic_light_classifier_mobilenetv2.onnx 7dc31c696b0400ddfc2cc5521586fa51)
 download(lamp_labels.txt 20167c8e9a1f9d2ec7b0b0088c4100f0)
 
-find_package(ament_cmake_auto REQUIRED)
-ament_auto_find_build_dependencies()
+find_package(ament_cmake_extension REQUIRED)
+ament_ex_find_all_package_dependencies()
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem)
 
@@ -118,7 +118,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     ${CUDA_INCLUDE_DIRS}
   )
 
-  ament_auto_add_library(libutils SHARED
+  ament_ex_add_library(libutils SHARED
     utils/trt_common.cpp
   )
   target_link_libraries(libutils
@@ -132,7 +132,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     stdc++fs
   )
 
-  ament_auto_add_library(traffic_light_classifier_nodelet SHARED
+  ament_ex_add_library(traffic_light_classifier_nodelet SHARED
     src/color_classifier.cpp
     src/cnn_classifier.cpp
     src/nodelet.cpp
@@ -146,7 +146,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE traffic_light_classifier_node
   )
 
-  ament_auto_add_library(single_image_debug_inference_node SHARED
+  ament_ex_add_library(single_image_debug_inference_node SHARED
     src/cnn_classifier.cpp
     src/color_classifier.cpp
     src/nodelet.cpp
@@ -162,7 +162,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE single_image_debug_inference
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     data
     launch
   )
@@ -174,7 +174,7 @@ else()
     ${OpenCV_INCLUDE_DIRS}
   )
 
-  ament_auto_add_library(traffic_light_classifier_nodelet SHARED
+  ament_ex_add_library(traffic_light_classifier_nodelet SHARED
     src/color_classifier.cpp
     src/nodelet.cpp
   )
@@ -187,7 +187,7 @@ else()
     EXECUTABLE traffic_light_classifier_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     data
     launch
   )

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(ground_segmentation)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -21,7 +21,7 @@ include_directories(
     ${GRID_MAP_INCLUDE_DIR}
 )
 
-ament_auto_add_library(ground_segmentation SHARED
+ament_ex_add_library(ground_segmentation SHARED
   src/ray_ground_filter_nodelet.cpp
   src/ransac_ground_filter_nodelet.cpp
   src/scan_ground_filter_nodelet.cpp
@@ -57,6 +57,6 @@ rclcpp_components_register_node(ground_segmentation
   EXECUTABLE scan_ground_filter_node)
 
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

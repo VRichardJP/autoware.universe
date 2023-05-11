@@ -11,9 +11,9 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(steer_offset_estimator_node SHARED
+ament_ex_add_library(steer_offset_estimator_node SHARED
   src/steer_offset_estimator_node.cpp
 )
 
@@ -27,7 +27,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
 )

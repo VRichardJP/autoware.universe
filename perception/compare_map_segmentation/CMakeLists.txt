@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(compare_map_segmentation)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -90,6 +90,6 @@ install(
   RUNTIME DESTINATION bin
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

@@ -19,9 +19,9 @@ rosidl_generate_interfaces(
   DEPENDENCIES builtin_interfaces geometry_msgs
 )
 
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_executable(main
+ament_ex_add_executable(main
   src/main.cpp
   src/static_centerline_optimizer_node.cpp
   src/successive_trajectory_optimizer_node.cpp
@@ -47,7 +47,7 @@ else()
     target_link_libraries(main "${cpp_typesupport_target}")
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

@@ -3,10 +3,10 @@ project(front_vehicle_velocity_estimator)
 
 # Dependencies
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Targets
-ament_auto_add_library(front_vehicle_velocity_estimator_node_component SHARED
+ament_ex_add_library(front_vehicle_velocity_estimator_node_component SHARED
   src/front_vehicle_velocity_estimator_node/front_vehicle_velocity_estimator_node.cpp
   src/front_vehicle_velocity_estimator_node/front_vehicle_velocity_estimator.cpp
 )
@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 # Package
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
 )

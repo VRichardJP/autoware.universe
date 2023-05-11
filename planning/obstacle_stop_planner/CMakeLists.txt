@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.14)
 project(obstacle_stop_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(Eigen3 REQUIRED)
 find_package(PCL REQUIRED)
 
-ament_auto_add_library(obstacle_stop_planner SHARED
+ament_ex_add_library(obstacle_stop_planner SHARED
   src/debug_marker.cpp
   src/node.cpp
   src/planner_utils.cpp
@@ -38,7 +38,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   config
   launch

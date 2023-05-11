@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.14)
 project(livox_tag_filter)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(PCL REQUIRED)
 
-ament_auto_add_library(livox_tag_filter SHARED
+ament_ex_add_library(livox_tag_filter SHARED
   src/livox_tag_filter_node/livox_tag_filter_node.cpp
 )
 
@@ -19,6 +19,6 @@ rclcpp_components_register_node(livox_tag_filter
   EXECUTABLE livox_tag_filter_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

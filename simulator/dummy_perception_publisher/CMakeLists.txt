@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(dummy_perception_publisher)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/InitialState.msg"
@@ -25,11 +25,11 @@ set(${PROJECT_NAME}_DEPENDENCIES
   tf2_ros
 )
 
-ament_auto_add_library(signed_distance_function SHARED
+ament_ex_add_library(signed_distance_function SHARED
   src/signed_distance_function.cpp
 )
 
-ament_auto_add_executable(dummy_perception_publisher_node
+ament_ex_add_executable(dummy_perception_publisher_node
   src/main.cpp
   src/node.cpp
   src/pointcloud_creator.cpp
@@ -69,7 +69,7 @@ target_link_libraries(dummy_perception_publisher_node ${PCL_LIBRARIES})
 target_link_directories(dummy_perception_publisher_node PRIVATE ${PCL_LIBRARY_DIRS})
 
 
-ament_auto_add_executable(empty_objects_publisher
+ament_ex_add_executable(empty_objects_publisher
   src/empty_objects_publisher.cpp
 )
 
@@ -82,7 +82,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
 )

@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.14)
 project(trajectory_follower_node)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 set(CONTROLLER_NODE controller_node)
-ament_auto_add_library(${CONTROLLER_NODE} SHARED
+ament_ex_add_library(${CONTROLLER_NODE} SHARED
   include/trajectory_follower_node/controller_node.hpp
   src/controller_node.cpp
 )
@@ -17,7 +17,7 @@ rclcpp_components_register_node(${CONTROLLER_NODE}
 
 # simple trajectory follower
 set(SIMPLE_TRAJECTORY_FOLLOWER_NODE simple_trajectory_follower)
-ament_auto_add_library(${SIMPLE_TRAJECTORY_FOLLOWER_NODE} SHARED
+ament_ex_add_library(${SIMPLE_TRAJECTORY_FOLLOWER_NODE} SHARED
   include/trajectory_follower_node/simple_trajectory_follower.hpp
   src/simple_trajectory_follower.cpp
 )
@@ -33,7 +33,7 @@ if(BUILD_TESTING)
     test/trajectory_follower_test_utils.hpp
     test/test_controller_node.cpp
   )
-  ament_target_dependencies(${TRAJECTORY_FOLLOWER_NODES_TEST} fake_test_node)
+  ament_ex_target_add_package_dependencies(${TRAJECTORY_FOLLOWER_NODES_TEST} TEST_DEPS)
   target_link_libraries(
     ${TRAJECTORY_FOLLOWER_NODES_TEST} ${CONTROLLER_NODE})
 
@@ -44,7 +44,7 @@ test_vehicle_info.param.yaml test_nearest_search.param.yaml trajectory_follower_
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   param
   launch

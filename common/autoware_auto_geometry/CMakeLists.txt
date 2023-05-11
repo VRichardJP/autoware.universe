@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(autoware_auto_geometry)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   include/geometry/spatial_hash.hpp
   include/geometry/intersection.hpp
   include/geometry/spatial_hash_config.hpp
@@ -24,16 +24,10 @@ if(BUILD_TESTING)
     test/src/test_intersection.cpp
   )
   ament_add_ros_isolated_gtest(${GEOMETRY_GTEST} ${GEOMETRY_SRC})
+  ament_ex_target_add_package_dependencies(${GEOMETRY_GTEST} TEST_DEPS)
   target_compile_options(${GEOMETRY_GTEST} PRIVATE -Wno-conversion -Wno-sign-conversion)
-  target_include_directories(${GEOMETRY_GTEST} PRIVATE "test/include" "include")
-  ament_target_dependencies(${GEOMETRY_GTEST}
-    "autoware_auto_common"
-    "autoware_auto_geometry_msgs"
-    "autoware_auto_planning_msgs"
-    "autoware_auto_vehicle_msgs"
-    "geometry_msgs"
-    "osrf_testing_tools_cpp")
+  target_include_directories(${GEOMETRY_GTEST} PRIVATE "test/include")
   target_link_libraries(${GEOMETRY_GTEST} ${PROJECT_NAME})
 endif()
 
-ament_auto_package()
+ament_ex_package()

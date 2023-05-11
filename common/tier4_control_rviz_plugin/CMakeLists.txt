@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(tier4_control_rviz_plugin)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-find_package(Qt5 REQUIRED Core Widgets)
+ament_ex_find_package(Qt5 REQUIRED Core Widgets)
 set(QT_LIBRARIES Qt5::Widgets)
 
 set(CMAKE_AUTOMOC ON)
@@ -16,7 +16,7 @@ set(HEADERS
 )
 
 ## Declare a C++ library
-ament_auto_add_library(tier4_control_rviz_plugin SHARED
+ament_ex_add_library(tier4_control_rviz_plugin SHARED
   src/tools/manual_controller.cpp
   ${HEADERS}
 )
@@ -28,7 +28,7 @@ target_link_libraries(tier4_control_rviz_plugin
 # Export the plugin to be imported by rviz2
 pluginlib_export_plugin_description_file(rviz_common plugins/plugin_description.xml)
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   plugins
 )

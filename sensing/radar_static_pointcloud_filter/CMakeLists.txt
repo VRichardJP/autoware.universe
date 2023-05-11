@@ -3,10 +3,10 @@ project(radar_static_pointcloud_filter)
 
 # Dependencies
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Targets
-ament_auto_add_library(radar_static_pointcloud_filter_node_component SHARED
+ament_ex_add_library(radar_static_pointcloud_filter_node_component SHARED
   src/radar_static_pointcloud_filter_node/radar_static_pointcloud_filter_node.cpp
 )
 
@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 # Package
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
 )

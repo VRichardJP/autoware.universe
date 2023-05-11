@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.14)
 project(tier4_state_rviz_plugin)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-find_package(Qt5 REQUIRED Core Widgets)
+ament_ex_find_package(Qt5 REQUIRED Core Widgets)
 set(QT_LIBRARIES Qt5::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 add_definitions(-DQT_NO_KEYWORDS)
 
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/autoware_state_panel.cpp
   src/velocity_steering_factors_panel.cpp
 )
@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME}
 # Export the plugin to be imported by rviz2
 pluginlib_export_plugin_description_file(rviz_common plugins/plugin_description.xml)
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   icons
   plugins

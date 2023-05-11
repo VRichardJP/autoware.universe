@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(lidar_centerpoint)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # TODO(lidar_centerpoint): Remove once upgrading to TensorRT 8.5 is complete
 add_compile_options(-Wno-deprecated-declarations)
@@ -117,16 +117,11 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   download(v2 pts_voxel_encoder_centerpoint_tiny.onnx 5fb774fac44dc83949d05eb3ba077309)
   download(v2 pts_backbone_neck_head_centerpoint_tiny.onnx e4658325b70222f7c3637fe00e586b82)
 
-  find_package(ament_cmake_auto REQUIRED)
-  ament_auto_find_build_dependencies()
-
-  include_directories(
-    include
-    ${CUDA_INCLUDE_DIRS}
-  )
+  # find_package(ament_cmake_extension REQUIRED)
+  # ament_ex_find_all_package_dependencies()
 
   ### centerpoint ###
-  ament_auto_add_library(centerpoint_lib SHARED
+  ament_ex_add_library(centerpoint_lib SHARED
     lib/centerpoint_trt.cpp
     lib/detection_class_remapper.cpp
     lib/utils.cpp
@@ -144,6 +139,13 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     lib/network/scatter_kernel.cu
     lib/preprocess/preprocess_kernel.cu
   )
+  target_include_directories(centerpoint_cuda_lib 
+    PRIVATE
+      include
+    PUBLIC
+      ${CUDA_INCLUDE_DIRS}
+  )
+  ament_ex_install_targets(centerpoint_cuda_lib)
 
   target_link_libraries(centerpoint_lib
     ${NVINFER}
@@ -155,12 +157,6 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     centerpoint_cuda_lib
   )
 
-  target_include_directories(centerpoint_lib
-    PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      $<INSTALL_INTERFACE:include>
-  )
-
   # To suppress unknown-pragmas error. The root-cause is CUB library in CUDA 11.6.
   # This issue was fixed by https://github.com/NVIDIA/cub/commit/7d608bf1dc14553e2fb219eabeed80b76621b6fe
   target_include_directories(centerpoint_lib
@@ -169,7 +165,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   )
 
   ## node ##
-  ament_auto_add_library(lidar_centerpoint_component SHARED
+  ament_ex_add_library(lidar_centerpoint_component SHARED
     src/node.cpp
   )
 
@@ -183,7 +179,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   )
 
   ## single inference node ##
-  ament_auto_add_library(single_inference_lidar_centerpoint_component SHARED
+  ament_ex_add_library(single_inference_lidar_centerpoint_component SHARED
     src/single_inference_node.cpp
   )
 
@@ -203,7 +199,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
 
   ament_export_dependencies(ament_cmake_python)
 
-  ament_auto_package(
+  ament_ex_package(
     INSTALL_TO_SHARE
       launch
       data
@@ -215,10 +211,10 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     DESTINATION lib
   )
 else()
-  find_package(ament_cmake_auto REQUIRED)
-  ament_auto_find_build_dependencies()
+  find_package(ament_cmake_extension REQUIRED)
+  ament_ex_find_all_package_dependencies()
 
-  ament_auto_package(
+  ament_ex_package(
     INSTALL_TO_SHARE
       launch
   )

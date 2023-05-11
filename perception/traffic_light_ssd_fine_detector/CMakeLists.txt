@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(traffic_light_ssd_fine_detector)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # TODO(traffic_light_ssd_fine_detector): Remove once upgrading to TensorRT 8.5 is complete
 add_compile_options(-Wno-deprecated-declarations)
@@ -123,25 +123,25 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     lib/src/plugins/gather_topk_kernel.cu
     lib/src/plugins/gather_topk.cpp
   )
+  target_include_directories(gather_topk_plugin PRIVATE
+    lib/include
+  )
+  ament_ex_install_targets(gather_topk_plugin)
 
   cuda_add_library(grid_priors_plugin SHARED
     lib/src/plugins/grid_priors_kernel.cu
     lib/src/plugins/grid_priors.cpp
   )
+  target_include_directories(grid_priors_plugin PRIVATE
+    lib/include
+  )
+  ament_ex_install_targets(grid_priors_plugin)
 
-  ament_auto_add_library(ssd SHARED
+  ament_ex_add_library(ssd SHARED
     lib/src/trt_ssd.cpp
   )
 
-  target_include_directories(ssd PUBLIC
-    lib/include
-  )
-
-  target_include_directories(gather_topk_plugin PUBLIC
-    lib/include
-  )
-
-  target_include_directories(grid_priors_plugin PUBLIC
+  ament_ex_target_include_directories(ssd
     lib/include
   )
 
@@ -156,7 +156,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     grid_priors_plugin
   )
 
-  ament_auto_add_library(traffic_light_ssd_fine_detector_nodelet SHARED
+  ament_ex_add_library(traffic_light_ssd_fine_detector_nodelet SHARED
     src/nodelet.cpp
   )
 
@@ -173,7 +173,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE traffic_light_ssd_fine_detector_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     data
     launch
   )
@@ -190,7 +190,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
 else()
   message(STATUS "TrafficLightSSDFineDetector won't be built, CUDA and/or TensorRT were not found.")
   # to avoid launch file missing without a gpu
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     launch
   )
 endif()

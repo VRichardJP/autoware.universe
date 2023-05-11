@@ -9,7 +9,7 @@
   <license>Apache License 2.0</license>
   <author email="koji.minoda@tier4.jp">Koji Minoda</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <depend>geometry_msgs</depend>

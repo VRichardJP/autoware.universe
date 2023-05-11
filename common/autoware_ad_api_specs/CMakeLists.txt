@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 project(autoware_ad_api_specs)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_package()
+ament_ex_add_library(autoware_ad_api_specs INTERFACE)
+
+ament_ex_package()

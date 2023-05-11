@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.22)
 project(planning_validator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(planning_validator_helpers SHARED
+ament_ex_add_library(planning_validator_helpers SHARED
   src/utils.cpp
   src/debug_marker.cpp
 )
 
 # planning validator
-ament_auto_add_library(planning_validator_component SHARED
+ament_ex_add_library(planning_validator_component SHARED
   include/planning_validator/planning_validator.hpp
   src/planning_validator.cpp
 )
@@ -21,7 +21,7 @@ rclcpp_components_register_node(planning_validator_component
 )
 
 # invalid trajectory publisher (for debug)
-ament_auto_add_library(invalid_trajectory_publisher_node SHARED
+ament_ex_add_library(invalid_trajectory_publisher_node SHARED
   src/invalid_trajectory_publisher/invalid_trajectory_publisher.cpp
 )
 rclcpp_components_register_node(invalid_trajectory_publisher_node
@@ -63,7 +63,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     config
     launch

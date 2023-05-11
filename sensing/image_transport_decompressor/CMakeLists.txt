@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 project(image_transport_decompressor)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-ament_auto_add_library(image_transport_decompressor SHARED
+ament_ex_add_library(image_transport_decompressor SHARED
   src/image_transport_decompressor.cpp
 )
 
@@ -22,6 +22,6 @@ rclcpp_components_register_node(image_transport_decompressor
   EXECUTABLE image_transport_decompressor_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

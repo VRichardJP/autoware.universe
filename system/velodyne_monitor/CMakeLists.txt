@@ -3,10 +3,10 @@ project(velodyne_monitor)
 
 find_package(autoware_cmake REQUIRED)
 find_package(fmt)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 ### Target executable
-ament_auto_add_executable(velodyne_monitor
+ament_ex_add_executable(velodyne_monitor
   src/velodyne_monitor_node.cpp
   src/velodyne_monitor.cpp
 )
@@ -14,7 +14,7 @@ ament_auto_add_executable(velodyne_monitor
 ## Specify libraries to link a library or executable target against
 target_link_libraries(velodyne_monitor cpprest crypto fmt)
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

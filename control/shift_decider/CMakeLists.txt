@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(shift_decider)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(shift_decider_node SHARED
+ament_ex_add_library(shift_decider_node SHARED
   src/shift_decider.cpp
 )
 
@@ -13,7 +13,7 @@ rclcpp_components_register_node(shift_decider_node
   EXECUTABLE shift_decider
 )
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
   config

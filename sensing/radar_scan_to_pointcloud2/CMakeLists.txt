@@ -3,10 +3,10 @@ project(radar_scan_to_pointcloud2)
 
 # Dependencies
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Targets
-ament_auto_add_library(radar_scan_to_pointcloud2_node_component SHARED
+ament_ex_add_library(radar_scan_to_pointcloud2_node_component SHARED
   src/radar_scan_to_pointcloud2_node/radar_scan_to_pointcloud2_node.cpp
 )
 
@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 # Package
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
 )

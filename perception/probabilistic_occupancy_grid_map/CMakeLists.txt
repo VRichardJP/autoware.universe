@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(probabilistic_occupancy_grid_map)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -14,7 +14,7 @@ include_directories(
 )
 
 # PointcloudBasedOccupancyGridMap
-ament_auto_add_library(pointcloud_based_occupancy_grid_map SHARED
+ament_ex_add_library(pointcloud_based_occupancy_grid_map SHARED
   src/pointcloud_based_occupancy_grid_map/pointcloud_based_occupancy_grid_map_node.cpp
   src/pointcloud_based_occupancy_grid_map/occupancy_grid_map.cpp
   src/updater/occupancy_grid_map_binary_bayes_filter_updater.cpp
@@ -31,7 +31,7 @@ rclcpp_components_register_node(pointcloud_based_occupancy_grid_map
 )
 
 # LaserscanBasedOccupancyGridMap
-ament_auto_add_library(laserscan_based_occupancy_grid_map SHARED
+ament_ex_add_library(laserscan_based_occupancy_grid_map SHARED
   src/laserscan_based_occupancy_grid_map/laserscan_based_occupancy_grid_map_node.cpp
   src/laserscan_based_occupancy_grid_map/occupancy_grid_map.cpp
   src/updater/occupancy_grid_map_binary_bayes_filter_updater.cpp
@@ -47,7 +47,7 @@ rclcpp_components_register_node(laserscan_based_occupancy_grid_map
   EXECUTABLE laserscan_based_occupancy_grid_map_node
 )
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

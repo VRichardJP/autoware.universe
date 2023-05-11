@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(raw_vehicle_cmd_converter)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(actuation_map_converter SHARED
+ament_ex_add_library(actuation_map_converter SHARED
   src/accel_map.cpp
   src/brake_map.cpp
   src/steer_map.cpp
@@ -12,7 +12,7 @@ ament_auto_add_library(actuation_map_converter SHARED
   src/pid.cpp
 )
 
-ament_auto_add_library(raw_vehicle_cmd_converter_node_component SHARED
+ament_ex_add_library(raw_vehicle_cmd_converter_node_component SHARED
   src/node.cpp
 )
 
@@ -32,7 +32,7 @@ if(BUILD_TESTING)
   target_link_libraries(${TEST_RAW_VEHICLE_CMD_CONVERTER_EXE} actuation_map_converter raw_vehicle_cmd_converter_node_component)
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   config
   data
   launch

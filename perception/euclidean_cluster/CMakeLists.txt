@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(euclidean_cluster)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(PCL REQUIRED)
 
@@ -13,7 +13,7 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
-ament_auto_add_library(cluster_lib SHARED
+ament_ex_add_library(cluster_lib SHARED
   lib/utils.cpp
   lib/euclidean_cluster.cpp
   lib/voxel_grid_based_euclidean_cluster.cpp
@@ -29,7 +29,7 @@ target_include_directories(cluster_lib
     $<INSTALL_INTERFACE:include>
 )
 
-ament_auto_add_library(euclidean_cluster_node_core SHARED
+ament_ex_add_library(euclidean_cluster_node_core SHARED
   src/euclidean_cluster_node.cpp
 )
 target_link_libraries(euclidean_cluster_node_core
@@ -42,7 +42,7 @@ rclcpp_components_register_node(euclidean_cluster_node_core
   EXECUTABLE euclidean_cluster_node
 )
 
-ament_auto_add_library(voxel_grid_based_euclidean_cluster_node_core SHARED
+ament_ex_add_library(voxel_grid_based_euclidean_cluster_node_core SHARED
   src/voxel_grid_based_euclidean_cluster_node.cpp
 )
 target_link_libraries(voxel_grid_based_euclidean_cluster_node_core
@@ -55,7 +55,7 @@ rclcpp_components_register_node(voxel_grid_based_euclidean_cluster_node_core
   EXECUTABLE voxel_grid_based_euclidean_cluster_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
     launch
     config
 )

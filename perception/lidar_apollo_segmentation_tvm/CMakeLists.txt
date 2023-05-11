@@ -16,7 +16,7 @@ cmake_minimum_required(VERSION 3.14)
 project(lidar_apollo_segmentation_tvm)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 set(tvm_runtime_DIR ${tvm_vendor_DIR})
 find_package(tvm_runtime CONFIG REQUIRED)
@@ -34,7 +34,7 @@ set(NN_DEPENDENCY "")
 get_neural_network(${MODEL_NAME} ${${PROJECT_NAME}_BACKEND} NN_DEPENDENCY)
 if(NOT NN_DEPENDENCY STREQUAL "")
   # Library
-  ament_auto_add_library(${PROJECT_NAME} SHARED
+  ament_ex_add_library(${PROJECT_NAME} SHARED
     data/models/${MODEL_NAME}/inference_engine_tvm_config.hpp
     include/lidar_apollo_segmentation_tvm/lidar_apollo_segmentation_tvm.hpp
     include/lidar_apollo_segmentation_tvm/cluster2d.hpp
@@ -84,4 +84,4 @@ else()
 endif()
 
 list(APPEND ${PROJECT_NAME}_CONFIG_EXTRAS "${PROJECT_NAME}-extras.cmake.in")
-ament_auto_package()
+ament_ex_package()

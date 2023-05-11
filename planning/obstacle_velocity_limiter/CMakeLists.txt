@@ -2,13 +2,22 @@ cmake_minimum_required(VERSION 3.5)
 project(obstacle_velocity_limiter)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(PCL REQUIRED COMPONENTS common)
 find_package(pcl_conversions REQUIRED)
 
-ament_auto_add_library(obstacle_velocity_limiter_node SHARED
-  DIRECTORY src
+ament_ex_add_library(obstacle_velocity_limiter_node SHARED
+  src/debug.cpp
+  src/distance.cpp
+  src/forward_projection.cpp
+  src/map_utils.cpp
+  src/obstacle_velocity_limiter_node.cpp
+  src/obstacle_velocity_limiter.cpp
+  src/obstacles.cpp
+  src/occupancy_grid_utils.cpp
+  src/pointcloud_utils.cpp
+  src/trajectory_preprocessing.cpp
 )
 
 ament_target_dependencies(obstacle_velocity_limiter_node PCL)
@@ -49,7 +58,7 @@ target_link_libraries(collision_benchmark
   obstacle_velocity_limiter_node
 )
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

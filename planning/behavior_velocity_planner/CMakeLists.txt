@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(behavior_velocity_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Find the non-obvious packages manually
 find_package(Boost REQUIRED)
@@ -31,7 +31,7 @@ foreach(scene_module IN LISTS scene_modules)
   list(APPEND scene_modules_src ${scene_module_src})
 endforeach()
 
-ament_auto_add_library(behavior_velocity_planner SHARED
+ament_ex_add_library(behavior_velocity_planner SHARED
   src/node.cpp
   src/planner_manager.cpp
   src/utilization/path_utilization.cpp
@@ -97,7 +97,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

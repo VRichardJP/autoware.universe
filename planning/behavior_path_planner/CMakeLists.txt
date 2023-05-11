@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(behavior_path_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
@@ -51,7 +51,7 @@ set(common_src
 )
 
 if(COMPILE_WITH_OLD_ARCHITECTURE)
-  ament_auto_add_library(behavior_path_planner_node SHARED
+  ament_ex_add_library(behavior_path_planner_node SHARED
     src/behavior_tree_manager.cpp
     src/scene_module/scene_module_bt_node_interface.cpp
     src/scene_module/lane_following/lane_following_module.cpp
@@ -63,7 +63,7 @@ if(COMPILE_WITH_OLD_ARCHITECTURE)
   message(WARNING "Build behavior_path_planner with OLD framework...")
 
 else()
-  ament_auto_add_library(behavior_path_planner_node SHARED
+  ament_ex_add_library(behavior_path_planner_node SHARED
     src/planner_manager.cpp
     src/scene_module/avoidance/manager.cpp
     src/scene_module/dynamic_avoidance/manager.cpp
@@ -140,7 +140,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     config
     launch

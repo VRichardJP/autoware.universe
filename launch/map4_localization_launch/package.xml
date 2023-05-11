@@ -12,7 +12,7 @@
   <license>Apache License 2.0</license>
   <author email="ryohei.sasaki@map.jp">Ryohei Sasaki</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <exec_depend>automatic_pose_initializer</exec_depend>

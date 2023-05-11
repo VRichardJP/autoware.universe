@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(object_merger)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Ignore -Wnonportable-include-path in Clang for mussp
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -18,11 +18,11 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
 )
 
-ament_auto_add_library(mu_successive_shortest_path SHARED
+ament_ex_add_library(mu_successive_shortest_path SHARED
   src/object_association_merger/data_association/mu_successive_shortest_path/mu_successive_shortest_path_wrapper.cpp
 )
 
-ament_auto_add_library(object_association_merger SHARED
+ament_ex_add_library(object_association_merger SHARED
   src/object_association_merger/data_association/data_association.cpp
   src/object_association_merger/node.cpp
 )
@@ -37,7 +37,7 @@ rclcpp_components_register_node(object_association_merger
   EXECUTABLE object_association_merger_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

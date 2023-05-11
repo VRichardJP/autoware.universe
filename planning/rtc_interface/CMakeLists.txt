@@ -9,10 +9,10 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 endif()
 
-find_package(ament_cmake_auto REQUIRED)
-ament_auto_find_build_dependencies()
+find_package(ament_cmake_extension REQUIRED)
+ament_ex_find_all_package_dependencies()
 
-ament_auto_add_library(rtc_interface SHARED
+ament_ex_add_library(rtc_interface SHARED
   src/rtc_interface.cpp
 )
 
@@ -22,4 +22,4 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package()
+ament_ex_package()

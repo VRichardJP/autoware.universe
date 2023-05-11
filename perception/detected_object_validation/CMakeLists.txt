@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(detected_object_validation)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 ### Find OpenCV Dependencies
 find_package(OpenCV REQUIRED)
@@ -32,7 +32,7 @@ set(OCCUPANCY_GRID_BASED_VALIDATOR_SRC
   src/occupancy_grid_based_validator.cpp
 )
 
-ament_auto_add_library(occupancy_grid_based_validator SHARED
+ament_ex_add_library(occupancy_grid_based_validator SHARED
   ${OCCUPANCY_GRID_BASED_VALIDATOR_SRC}
 )
 
@@ -46,7 +46,7 @@ set(OBSTACLE_POINTCLOUD_BASED_VALIDATOR_SRC
   src/obstacle_pointcloud_based_validator.cpp
 )
 
-ament_auto_add_library(obstacle_pointcloud_based_validator SHARED
+ament_ex_add_library(obstacle_pointcloud_based_validator SHARED
   ${OBSTACLE_POINTCLOUD_BASED_VALIDATOR_SRC}
 )
 
@@ -55,12 +55,12 @@ target_link_libraries(obstacle_pointcloud_based_validator
   Eigen3::Eigen
 )
 
-ament_auto_add_library(object_lanelet_filter SHARED
+ament_ex_add_library(object_lanelet_filter SHARED
   src/object_lanelet_filter.cpp
   src/utils.cpp
 )
 
-ament_auto_add_library(object_position_filter SHARED
+ament_ex_add_library(object_position_filter SHARED
   src/object_position_filter.cpp
   src/utils.cpp
 )
@@ -80,7 +80,7 @@ rclcpp_components_register_node(object_position_filter
   EXECUTABLE object_position_filter_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

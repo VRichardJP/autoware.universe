@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.14)
 project(freespace_planning_algorithms)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(reeds_shepp SHARED
+ament_ex_add_library(reeds_shepp SHARED
   src/reeds_shepp.cpp
 )
 
-ament_auto_add_library(rrtstar_core SHARED
+ament_ex_add_library(rrtstar_core SHARED
   src/rrtstar_core.cpp
 )
 
@@ -16,7 +16,7 @@ target_link_libraries(rrtstar_core
   reeds_shepp
 )
 
-ament_auto_add_library(freespace_planning_algorithms SHARED
+ament_ex_add_library(freespace_planning_algorithms SHARED
   src/abstract_algorithm.cpp
   src/astar_search.cpp
   src/rrtstar.cpp
@@ -24,6 +24,7 @@ ament_auto_add_library(freespace_planning_algorithms SHARED
 
 target_link_libraries(freespace_planning_algorithms
   reeds_shepp
+  rrtstar_core
 )
 
 if(BUILD_TESTING)
@@ -44,7 +45,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
 )
 

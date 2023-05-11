@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(detection_by_tracker)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Ignore -Wnonportable-include-path in Clang for mussp
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -29,7 +29,7 @@ set(DETECTION_BY_TRACKER_SRC
   src/detection_by_tracker_core.cpp
 )
 
-ament_auto_add_library(detection_by_tracker_node SHARED
+ament_ex_add_library(detection_by_tracker_node SHARED
   ${DETECTION_BY_TRACKER_SRC}
 )
 
@@ -43,6 +43,6 @@ rclcpp_components_register_node(detection_by_tracker_node
   EXECUTABLE detection_by_tracker
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

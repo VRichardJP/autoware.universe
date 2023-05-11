@@ -13,8 +13,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(ament_cmake_auto)
-ament_auto_find_build_dependencies()
+find_package(ament_cmake_extension)
+ament_ex_find_all_package_dependencies()
 
 find_package(cv_bridge REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -28,7 +28,7 @@ include_directories(
 )
 
 
-ament_auto_add_library(image_diagnostics SHARED
+ament_ex_add_library(image_diagnostics SHARED
   src/image_diagnostics_node.cpp
 )
 target_link_libraries(image_diagnostics
@@ -45,6 +45,6 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

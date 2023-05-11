@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 project(mpc_lateral_controller)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(steering_offset_lib SHARED
+ament_ex_add_library(steering_offset_lib SHARED
   src/steering_offset/steering_offset.cpp
 )
 
 set(MPC_LAT_CON_LIB ${PROJECT_NAME}_lib)
-ament_auto_add_library(${MPC_LAT_CON_LIB} SHARED
+ament_ex_add_library(${MPC_LAT_CON_LIB} SHARED
   src/mpc_lateral_controller.cpp
   src/interpolate.cpp
   src/lowpass_filter.cpp
@@ -34,9 +34,10 @@ if(BUILD_TESTING)
   )
   set(TEST_LATERAL_CONTROLLER_EXE test_lateral_controller)
   ament_add_ros_isolated_gtest(${TEST_LATERAL_CONTROLLER_EXE} ${TEST_LAT_SOURCES})
+  ament_ex_target_add_package_dependencies(${TEST_LATERAL_CONTROLLER_EXE} TEST_DEPS)
   target_link_libraries(${TEST_LATERAL_CONTROLLER_EXE} ${MPC_LAT_CON_LIB})
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   param
 )

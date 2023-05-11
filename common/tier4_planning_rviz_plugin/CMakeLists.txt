@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(tier4_planning_rviz_plugin)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-find_package(Qt5 REQUIRED Core Widgets)
+ament_ex_find_package(Qt5 REQUIRED Core Widgets)
 set(QT_LIBRARIES Qt5::Widgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -16,7 +16,7 @@ include_directories(
     ${EIGEN3_INCLUDE_DIR}
 )
 
-ament_auto_add_library(tier4_planning_rviz_plugin SHARED
+ament_ex_add_library(tier4_planning_rviz_plugin SHARED
   # path point
   include/path/display_base.hpp
   include/path/display.hpp
@@ -37,7 +37,7 @@ target_link_libraries(tier4_planning_rviz_plugin
 # Export the plugin to be imported by rviz2
 pluginlib_export_plugin_description_file(rviz_common plugins/plugin_description.xml)
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   icons
   plugins

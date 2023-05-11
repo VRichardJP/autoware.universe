@@ -55,7 +55,7 @@ cmake_minimum_required(VERSION 3.14)
 project(behavior_path_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)

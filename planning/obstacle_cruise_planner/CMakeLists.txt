@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.14)
 project(obstacle_cruise_planner)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(Eigen3 REQUIRED)
 
-ament_auto_add_library(obstacle_cruise_planner_core SHARED
+ament_ex_add_library(obstacle_cruise_planner_core SHARED
   src/node.cpp
   src/utils.cpp
   src/polygon_utils.cpp
@@ -32,7 +32,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
   launch
   config

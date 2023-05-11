@@ -2,11 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(operation_mode_transition_manager)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
-find_package(ament_cmake_auto REQUIRED)
-ament_auto_find_build_dependencies()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(operation_mode_transition_manager_node SHARED
+ament_ex_add_library(operation_mode_transition_manager_node SHARED
   src/compatibility.cpp
   src/data.cpp
   src/node.cpp
@@ -40,7 +38,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

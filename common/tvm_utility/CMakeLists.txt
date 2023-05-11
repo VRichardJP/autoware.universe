@@ -18,7 +18,7 @@ project(tvm_utility)
 include("${PROJECT_NAME}-extras.cmake")
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Library
 
@@ -26,7 +26,7 @@ set(TVM_UTILITY_NODE_LIB_HEADERS
   "include/${PROJECT_NAME}/pipeline.hpp"
 )
 
-ament_auto_add_library(${PROJECT_NAME} SHARED ${TVM_UTILITY_NODE_LIB_HEADERS})
+ament_ex_add_library(${PROJECT_NAME} SHARED ${TVM_UTILITY_NODE_LIB_HEADERS})
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 if(BUILD_TESTING)
@@ -34,10 +34,7 @@ if(BUILD_TESTING)
   set(${PROJECT_NAME}_BACKEND llvm CACHE STRING "${PROJECT_NAME} neural network backend")
 
   # compile each folder inside test/ as a test case
-  find_package(ament_cmake_gtest REQUIRED)
-  find_package(OpenCV REQUIRED)
   set(tvm_runtime_DIR ${tvm_vendor_DIR})
-  find_package(tvm_runtime CONFIG REQUIRED)
 
   set(TEST_ARTIFACTS "${CMAKE_CURRENT_LIST_DIR}/artifacts")
   file(GLOB TEST_CASES test/*)
@@ -61,20 +58,10 @@ if(BUILD_TESTING)
       # add all cpp files in the folder to the target
       file(GLOB TEST_CASE_SOURCES ${TEST_FOLDER}/*.cpp)
       ament_add_gtest(${TEST_CASE_NAME} ${TEST_CASE_SOURCES})
-      ament_target_dependencies(${TEST_CASE_NAME}
-        "ament_index_cpp"
-        "tvm_vendor"
-      )
+      ament_ex_target_add_package_dependencies(${TEST_CASE_NAME} TEST_DEPS)
       add_dependencies(${TEST_CASE_NAME} ${NN_DEPENDENCY})
 
-      target_link_libraries("${TEST_CASE_NAME}"
-        "${OpenCV_LIBRARIES}"
-        "${tvm_runtime_LIBRARIES}"
-      )
-
       target_include_directories("${TEST_CASE_NAME}" SYSTEM PUBLIC
-        "${OpenCV_INCLUDE_DIRS}"
-        "${tvm_utility_FOUND_INCLUDE_DIRS}"
         "data/models"
         "include"
       )
@@ -94,4 +81,4 @@ if(BUILD_TESTING)
 endif()
 
 list(APPEND ${PROJECT_NAME}_CONFIG_EXTRAS "${PROJECT_NAME}-extras.cmake")
-ament_auto_package()
+ament_ex_package()

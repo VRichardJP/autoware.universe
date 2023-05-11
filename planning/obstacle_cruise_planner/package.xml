@@ -12,7 +12,7 @@
   <author email="takayuki.murooka@tier4.jp">Takayuki Murooka</author>
   <author email="yutaka.shimizu@tier4.jp">Yutaka Shimizu</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <depend>autoware_adapi_v1_msgs</depend>

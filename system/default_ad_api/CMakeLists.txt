@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(default_ad_api)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/fail_safe.cpp
   src/interface.cpp
   src/localization.cpp
@@ -36,4 +36,4 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_auto_package(INSTALL_TO_SHARE config launch test)
+ament_ex_package(INSTALL_TO_SHARE config launch test)

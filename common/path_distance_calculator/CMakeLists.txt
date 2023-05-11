@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(path_distance_calculator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/path_distance_calculator.cpp
 )
 
@@ -13,4 +13,4 @@ rclcpp_components_register_node(${PROJECT_NAME}
   EXECUTABLE ${PROJECT_NAME}_node
 )
 
-ament_auto_package(INSTALL_TO_SHARE launch)
+ament_ex_package(INSTALL_TO_SHARE launch)

@@ -86,9 +86,7 @@ add_library(${PROJECT_NAME} SHARED
 target_include_directories(${PROJECT_NAME} PRIVATE
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>"
-  ${cuda_utils_INCLUDE_DIRS}
   ${pcl_conversions_INCLUDE_DIRS}
-  ${tier4_autoware_utils_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -97,8 +95,10 @@ target_link_libraries(${PROJECT_NAME}
   rclcpp_components::component
   tensorrt_common::tensorrt_common
   tf2_eigen::tf2_eigen
+  ${cuda_utils_TARGETS}
   ${tier4_debug_msgs_TARGETS}
   ${tier4_perception_msgs_TARGETS}
+  ${tier4_autoware_utils_TARGETS}
 )
 
 if(BUILD_TESTING)

@@ -16,7 +16,7 @@ cmake_minimum_required(VERSION 3.14)
 project(lidar_apollo_segmentation_tvm_nodes)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Only build if the "core" package has been built.
 if(lidar_apollo_segmentation_tvm_BUILT)
@@ -24,7 +24,7 @@ if(lidar_apollo_segmentation_tvm_BUILT)
   include_directories(SYSTEM "${lidar_apollo_segmentation_tvm_INCLUDE_DIRS}")
 
   # Library
-  ament_auto_add_library(${PROJECT_NAME} SHARED
+  ament_ex_add_library(${PROJECT_NAME} SHARED
     include/lidar_apollo_segmentation_tvm_nodes/lidar_apollo_segmentation_tvm_node.hpp
     src/lidar_apollo_segmentation_tvm_node.cpp
   )
@@ -42,11 +42,11 @@ if(lidar_apollo_segmentation_tvm_BUILT)
     )
   endif()
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     launch
     config
   )
 else()
   message(WARNING "lidar_apollo_segmentation_tvm not built, skipping package.")
-  ament_auto_package()
+  ament_ex_package()
 endif()

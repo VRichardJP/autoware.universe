@@ -8,7 +8,7 @@ if(NOT ${tensorrt_common_FOUND})
 endif()
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(OpenCV REQUIRED)
 include(CheckLanguage)
@@ -67,7 +67,7 @@ download(label.txt 9ceadca8b72b6169ee6aabb861fe3e1e)
 
 ##########
 # tensorrt_yolox
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/tensorrt_yolox.cpp
 )
 
@@ -85,6 +85,7 @@ if(CMAKE_CUDA_COMPILER)
     SHARED
     src/preprocess.cu
   )
+  ament_ex_install_targets(${PROJECT_NAME}_gpu_preprocess)
 
   target_include_directories(${PROJECT_NAME}_gpu_preprocess PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -105,7 +106,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
   TENSORRT_VERSION_MAJOR=${TENSORRT_VERSION_MAJOR}
 )
 
-ament_auto_add_library(yolox_single_image_inference_node SHARED
+ament_ex_add_library(yolox_single_image_inference_node SHARED
   src/yolox_single_image_inference_node.cpp
 )
 
@@ -127,7 +128,7 @@ rclcpp_components_register_node(yolox_single_image_inference_node
   EXECUTABLE yolox_single_image_inference
 )
 
-ament_auto_add_library(${PROJECT_NAME}_node SHARED
+ament_ex_add_library(${PROJECT_NAME}_node SHARED
   src/tensorrt_yolox_node.cpp
 )
 
@@ -153,7 +154,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   data
 )

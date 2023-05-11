@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(system_monitor)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(NVML)
@@ -72,28 +72,28 @@ set(CPU_MONITOR_SOURCE
   src/cpu_monitor/${CMAKE_CPU_PLATFORM}_cpu_monitor.cpp
 )
 
-ament_auto_add_library(cpu_monitor_lib SHARED
+ament_ex_add_library(cpu_monitor_lib SHARED
   ${CPU_MONITOR_SOURCE}
 )
 
-ament_auto_add_library(hdd_monitor_lib SHARED
+ament_ex_add_library(hdd_monitor_lib SHARED
   src/hdd_monitor/hdd_monitor.cpp
 )
 
-ament_auto_add_library(mem_monitor_lib SHARED
+ament_ex_add_library(mem_monitor_lib SHARED
   src/mem_monitor/mem_monitor.cpp
 )
 
-ament_auto_add_library(net_monitor_lib SHARED
+ament_ex_add_library(net_monitor_lib SHARED
   src/net_monitor/net_monitor.cpp
   src/net_monitor/nl80211.cpp
 )
 
-ament_auto_add_library(ntp_monitor_lib SHARED
+ament_ex_add_library(ntp_monitor_lib SHARED
   src/ntp_monitor/ntp_monitor.cpp
 )
 
-ament_auto_add_library(process_monitor_lib SHARED
+ament_ex_add_library(process_monitor_lib SHARED
   src/process_monitor/process_monitor.cpp
 )
 
@@ -101,23 +101,23 @@ set(GPU_MONITOR_SOURCE
   src/gpu_monitor/gpu_monitor_base.cpp
   src/gpu_monitor/${CMAKE_GPU_PLATFORM}_gpu_monitor.cpp
 )
-ament_auto_add_library(gpu_monitor_lib SHARED
+ament_ex_add_library(gpu_monitor_lib SHARED
   ${GPU_MONITOR_SOURCE}
 )
 
-ament_auto_add_library(voltage_monitor_lib SHARED
+ament_ex_add_library(voltage_monitor_lib SHARED
   src/voltage_monitor/voltage_monitor.cpp
 )
 
-ament_auto_add_executable(msr_reader
+ament_ex_add_executable(msr_reader
   reader/msr_reader/msr_reader.cpp
 )
 
-ament_auto_add_executable(hdd_reader
+ament_ex_add_executable(hdd_reader
   reader/hdd_reader/hdd_reader.cpp
 )
 
-ament_auto_add_executable(traffic_reader
+ament_ex_add_executable(traffic_reader
   reader/traffic_reader/traffic_reader_main.cpp
   reader/traffic_reader/traffic_reader_service.cpp
 )
@@ -304,7 +304,7 @@ if(BUILD_TESTING)
 
 endif()
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

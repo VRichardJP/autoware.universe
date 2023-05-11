@@ -10,7 +10,7 @@
   <maintainer email="kenji.miyake@tier4.jp">Kenji Miyake</maintainer>
   <license>Apache License 2.0</license>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <depend>rclcpp</depend>

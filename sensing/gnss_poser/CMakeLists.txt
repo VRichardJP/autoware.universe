@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(gnss_poser)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 ## Find non-ROS library
 find_package(PkgConfig)
@@ -21,7 +21,7 @@ set(GNSS_POSER_HEADERS
   include/gnss_poser/gnss_stat.hpp
 )
 
-ament_auto_add_library(gnss_poser_node SHARED
+ament_ex_add_library(gnss_poser_node SHARED
   src/gnss_poser_core.cpp
   ${GNSS_POSER_HEADERS}
 )
@@ -35,7 +35,7 @@ rclcpp_components_register_node(gnss_poser_node
   EXECUTABLE gnss_poser
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

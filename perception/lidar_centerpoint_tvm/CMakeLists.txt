@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(lidar_centerpoint_tvm)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 set(tvm_runtime_DIR ${tvm_vendor_DIR})
 find_package(tvm_runtime CONFIG REQUIRED)
@@ -23,7 +23,7 @@ get_neural_network(${MODEL_NAME_BACKBONE} ${${PROJECT_NAME}_BACKEND} NN_DEPENDEN
 
 if((NOT NN_DEPENDENCY_ENCODER STREQUAL "") AND (NOT NN_DEPENDENCY_BACKBONE STREQUAL ""))
   ## centerpoint_tvm ##
-  ament_auto_add_library(${PROJECT_NAME} SHARED
+  ament_ex_add_library(${PROJECT_NAME} SHARED
     data/models/${MODEL_NAME_ENCODER}/inference_engine_tvm_config.hpp
     data/models/${MODEL_NAME_BACKBONE}/inference_engine_tvm_config.hpp
     data/models/${MODEL_NAME_BACKBONE}/preprocessing_inference_engine_tvm_config.hpp
@@ -55,7 +55,7 @@ if((NOT NN_DEPENDENCY_ENCODER STREQUAL "") AND (NOT NN_DEPENDENCY_BACKBONE STREQ
   )
 
   ## node ##
-  ament_auto_add_library(lidar_centerpoint_tvm_component SHARED
+  ament_ex_add_library(lidar_centerpoint_tvm_component SHARED
     src/node.cpp
   )
 
@@ -69,7 +69,7 @@ if((NOT NN_DEPENDENCY_ENCODER STREQUAL "") AND (NOT NN_DEPENDENCY_BACKBONE STREQ
   )
 
   ## single inference node ##
-  ament_auto_add_library(single_inference_lidar_centerpoint_tvm_component SHARED
+  ament_ex_add_library(single_inference_lidar_centerpoint_tvm_component SHARED
     src/single_inference_node.cpp
   )
 
@@ -90,11 +90,11 @@ if((NOT NN_DEPENDENCY_ENCODER STREQUAL "") AND (NOT NN_DEPENDENCY_BACKBONE STREQ
 
   ament_export_dependencies(ament_cmake_python)
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     launch
     config
   )
 else()
   message(WARNING "Neural network not found, skipping package.")
-  ament_auto_package()
+  ament_ex_package()
 endif()

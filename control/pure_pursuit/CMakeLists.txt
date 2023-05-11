@@ -2,24 +2,23 @@ cmake_minimum_required(VERSION 3.14)
 project(pure_pursuit)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(Eigen3 REQUIRED)
 
-include_directories(
-  SYSTEM
-    ${EIGEN3_INCLUDE_DIRS}
-)
-
 # pure_pursuit_core
-ament_auto_add_library(pure_pursuit_core SHARED
+ament_ex_add_library(pure_pursuit_core SHARED
   src/pure_pursuit_core/planning_utils.cpp
   src/pure_pursuit_core/pure_pursuit.cpp
   src/pure_pursuit_core/interpolate.cpp
 )
 
+target_link_libraries(pure_pursuit_core
+  Eigen3::Eigen
+)
+
 # pure_pursuit
-ament_auto_add_library(pure_pursuit_lateral_controller SHARED
+ament_ex_add_library(pure_pursuit_lateral_controller SHARED
   src/pure_pursuit/pure_pursuit_lateral_controller.cpp
   src/pure_pursuit/pure_pursuit_viz.cpp
 )
@@ -33,7 +32,7 @@ rclcpp_components_register_node(pure_pursuit_lateral_controller
   EXECUTABLE pure_pursuit_lateral_controller_exe
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
   config
 )

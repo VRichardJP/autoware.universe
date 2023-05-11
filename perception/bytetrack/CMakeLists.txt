@@ -2,16 +2,16 @@ cmake_minimum_required(VERSION 3.5)
 project(bytetrack)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
-find_package(OpenCV REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(OpenMP REQUIRED)
+ament_ex_find_package(OpenCV REQUIRED)
+ament_ex_find_package(Eigen3 REQUIRED)
+ament_ex_find_package(OpenMP REQUIRED)
 if(OpenMP_FOUND)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
-find_package(Boost REQUIRED)
+ament_ex_find_package(Boost REQUIRED)
 
 #
 # Core library
@@ -20,7 +20,7 @@ file(GLOB bytetrack_lib_src
   "lib/src/*.cpp"
 )
 
-ament_auto_add_library(bytetrack_lib SHARED
+ament_ex_add_library(bytetrack_lib SHARED
   ${bytetrack_lib_src}
 )
 
@@ -34,8 +34,12 @@ target_link_libraries(bytetrack_lib Eigen3::Eigen)
 #
 # ROS node
 #
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_ex_add_library(${PROJECT_NAME} SHARED
   src/bytetrack.cpp
+)
+
+target_link_libraries(${PROJECT_NAME}
+  Eigen3::Eigen
 )
 
 ament_target_dependencies(${PROJECT_NAME}
@@ -52,7 +56,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
   TENSORRT_VERSION_MAJOR=${TENSORRT_VERSION_MAJOR}
 )
 
-ament_auto_add_library(${PROJECT_NAME}_node SHARED
+ament_ex_add_library(${PROJECT_NAME}_node SHARED
   src/bytetrack_node.cpp
 )
 
@@ -76,7 +80,7 @@ rclcpp_components_register_node(${PROJECT_NAME}_node
 #
 # Visualizer
 #
-ament_auto_add_library(${PROJECT_NAME}_visualizer SHARED
+ament_ex_add_library(${PROJECT_NAME}_visualizer SHARED
   src/bytetrack_visualizer_node.cpp
 )
 
@@ -89,6 +93,6 @@ rclcpp_components_register_node(${PROJECT_NAME}_visualizer
   EXECUTABLE ${PROJECT_NAME}_visualizer_node_exe
 )
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

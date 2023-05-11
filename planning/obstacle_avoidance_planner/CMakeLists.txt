@@ -13,11 +13,11 @@ include(CheckCXXCompilerFlag)
 # endif()
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(Eigen3 REQUIRED)
 
-ament_auto_add_library(obstacle_avoidance_planner SHARED
+ament_ex_add_library(obstacle_avoidance_planner SHARED
   # node
   src/node.cpp
   # core algorithms
@@ -55,7 +55,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

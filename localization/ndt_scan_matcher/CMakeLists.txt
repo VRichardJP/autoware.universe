@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(ndt_scan_matcher)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Compile flags for SIMD instructions
 # Be careful to change these options, especially when `ndt_omp` implementation is used.
@@ -22,10 +22,9 @@ else()
   endif()
 endif()
 
-find_package(PCL REQUIRED COMPONENTS common io registration)
-include_directories(${PCL_INCLUDE_DIRS})
+find_package(PCL REQUIRED COMPONENTS io registration filters)
 
-ament_auto_add_executable(ndt_scan_matcher
+ament_ex_add_executable(ndt_scan_matcher
   src/debug.cpp
   src/ndt_scan_matcher_node.cpp
   src/ndt_scan_matcher_core.cpp
@@ -37,10 +36,11 @@ ament_auto_add_executable(ndt_scan_matcher
   src/map_update_module.cpp
 )
 
-link_directories(${PCL_LIBRARY_DIRS})
+ament_target_dependencies(ndt_scan_matcher SYSTEM PCL)
+# FIXME(VRichardJP) to remove after https://github.com/ament/ament_cmake/issues/451 is fixed
 target_link_libraries(ndt_scan_matcher ${PCL_LIBRARIES})
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

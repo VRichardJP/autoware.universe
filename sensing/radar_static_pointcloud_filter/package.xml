@@ -8,7 +8,7 @@
   <author email="satoshi.tanaka@tier4.jp">Satoshi Tanaka</author>
   <license>Apache License 2.0</license>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <buildtool_depend>ament_cmake_extension</buildtool_depend>
   <buildtool_depend>autoware_cmake</buildtool_depend>
 
   <depend>message_filters</depend>

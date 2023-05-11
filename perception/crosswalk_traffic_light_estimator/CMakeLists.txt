@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(crosswalk_traffic_light_estimator)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 ###########
 ## Build ##
@@ -10,7 +10,7 @@ autoware_package()
 
 include_directories()
 
-ament_auto_add_library(crosswalk_traffic_light_estimator SHARED
+ament_ex_add_library(crosswalk_traffic_light_estimator SHARED
   src/node.cpp
 )
 
@@ -28,6 +28,6 @@ endif()
 ## Install ##
 #############
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )

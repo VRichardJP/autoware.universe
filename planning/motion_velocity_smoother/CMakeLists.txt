@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(motion_velocity_smoother)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 find_package(Boost REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
@@ -28,11 +28,11 @@ set(SMOOTHER_SRC
   src/resample.cpp
 )
 
-ament_auto_add_library(smoother SHARED
+ament_ex_add_library(smoother SHARED
   ${SMOOTHER_SRC}
 )
 
-ament_auto_add_library(motion_velocity_smoother_node SHARED
+ament_ex_add_library(motion_velocity_smoother_node SHARED
   ${MOTION_VELOCITY_SMOOTHER_SRC}
 )
 
@@ -61,7 +61,7 @@ if(BUILD_TESTING)
 endif()
 
 
-ament_auto_package(
+ament_ex_package(
   INSTALL_TO_SHARE
     launch
     config

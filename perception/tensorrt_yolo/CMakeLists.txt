@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(tensorrt_yolo)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # TODO(tensorrt_yolo): Remove once upgrading to TensorRT 8.5 is complete
 add_compile_options(-Wno-deprecated-declarations)
@@ -124,36 +124,38 @@ endif()
 
 if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
   include_directories(
-    include
-    lib/include
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/include>
+    $<INSTALL_INTERFACE:lib/include>
     ${OpenCV_INCLUDE_DIRS}
     ${CUDA_INCLUDE_DIRS}
   )
-
 
   ### yolo ###
   cuda_add_library(mish_plugin SHARED
     lib/src/plugins/mish.cu
     lib/src/plugins/mish_plugin.cpp
   )
+  ament_ex_install_targets(mish_plugin)
 
   cuda_add_library(yolo_layer_plugin SHARED
     lib/src/plugins/yolo_layer.cu
     lib/src/plugins/yolo_layer_plugin.cpp
   )
+  ament_ex_install_targets(yolo_layer_plugin)
 
   cuda_add_library(nms_plugin SHARED
     lib/src/plugins/nms.cu
     lib/src/plugins/nms_plugin.cpp
   )
+  ament_ex_install_targets(nms_plugin)
 
-  ament_auto_add_library(yolo SHARED
+  ament_ex_add_library(yolo SHARED
     lib/src/trt_yolo.cpp
   )
 
   target_include_directories(yolo PUBLIC
-    lib/include
-  )
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib/include>
+    $<INSTALL_INTERFACE:lib/include>)
 
   target_link_libraries(yolo
     ${NVINFER}
@@ -167,7 +169,7 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     nms_plugin
   )
 
-  ament_auto_add_library(tensorrt_yolo_nodelet SHARED
+  ament_ex_add_library(tensorrt_yolo_nodelet SHARED
     src/nodelet.cpp
   )
 
@@ -184,25 +186,25 @@ if(TRT_AVAIL AND CUDA_AVAIL AND CUDNN_AVAIL)
     EXECUTABLE tensorrt_yolo_node
   )
 
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     config
     data
     launch
   )
 
-  install(
-    TARGETS
-      mish_plugin
-      yolo_layer_plugin
-      nms_plugin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-  )
+  # install(
+  #   TARGETS
+  #     mish_plugin
+  #     yolo_layer_plugin
+  #     nms_plugin
+  #   LIBRARY DESTINATION lib
+  #   ARCHIVE DESTINATION lib
+  #   RUNTIME DESTINATION bin
+  # )
 
 else()
   message("TensorrtYolo won't be built, CUDA and/or TensorRT were not found.")
-  ament_auto_package(INSTALL_TO_SHARE
+  ament_ex_package(INSTALL_TO_SHARE
     config
     data
     launch

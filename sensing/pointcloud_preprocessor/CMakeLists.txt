@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(pointcloud_preprocessor)
 
 find_package(autoware_cmake REQUIRED)
-autoware_package()
+autoware_package(USE_AMENT_EX)
 
 # Suppress CGAL warning
 set(CGAL_DATA_DIR ".")
@@ -41,7 +41,7 @@ ament_target_dependencies(pointcloud_preprocessor_filter_base
   pcl_ros
 )
 
-ament_auto_add_library(pointcloud_preprocessor_filter SHARED
+ament_ex_add_library(pointcloud_preprocessor_filter SHARED
   src/utility/utilities.cpp
   src/concatenate_data/concatenate_data_nodelet.cpp
   src/crop_box_filter/crop_box_filter_nodelet.cpp
@@ -174,6 +174,6 @@ install(
 
 ament_export_targets(export_${PROJECT_NAME})
 
-ament_auto_package(INSTALL_TO_SHARE
+ament_ex_package(INSTALL_TO_SHARE
   launch
 )
