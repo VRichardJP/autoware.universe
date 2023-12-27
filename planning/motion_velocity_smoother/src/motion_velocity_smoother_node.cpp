@@ -1039,7 +1039,7 @@ bool MotionVelocitySmootherNode::isEngageStatus(const double target_vel) const
 {
   const double vehicle_speed = std::fabs(current_odometry_ptr_->twist.twist.linear.x);
   const double engage_vel_thr = node_param_.engage_velocity * node_param_.engage_exit_ratio;
-  return vehicle_speed < engage_vel_thr && target_vel >= node_param_.engage_velocity;
+  return vehicle_speed < engage_vel_thr && std::abs(target_vel) >= node_param_.engage_velocity;
 }
 
 Trajectory MotionVelocitySmootherNode::toTrajectoryMsg(
